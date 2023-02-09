@@ -1,0 +1,10 @@
+{
+  "name": "outdoors-explorer",
+  "description": "Full-stack web application for exploring the outdoors website built with React, Node.js, Express, MongoDB",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "server"
+  ]
+}
