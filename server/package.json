@@ -8,12 +8,18 @@
     "dev": "tsnd -r tsconfig-paths/register --respawn --ignore-watch node_modules --transpile-only src/server.ts",
     "build": "rimraf dist && npx tsc && tsc-alias",
     "start": "node dist/server.js",
+    "seed": "npx prisma db seed",
+    "generate": "npx prisma generate",
     "lint": "ts-standard",
     "lint:fix": "ts-standard --fix",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch"
   },
+  "prisma": {
+    "seed": "ts-node src/seed.ts"
+  },
   "dependencies": {
+    "@prisma/client": "^4.10.0",
     "chalk": "4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -26,6 +32,7 @@
     "@types/node": "^18.13.0",
     "prettier": "^2.8.4",
     "rimraf": "^4.1.2",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "ts-standard": "^12.0.2",
     "tsc-alias": "^1.8.2",
