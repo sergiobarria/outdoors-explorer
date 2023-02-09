@@ -5,6 +5,15 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "client",
     "server"
-  ]
+  ],
+  "scripts": {
+    "dev:client": "cd client && yarn dev",
+    "dev:server": "cd server && yarn dev",
+    "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
 }
