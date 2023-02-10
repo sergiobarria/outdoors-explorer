@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "dev:client": "cd client && yarn dev",
-    "dev:server": "cd server && yarn dev",
+    "dev:server": "cd server && yarn dev:docker",
     "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\""
   },
   "devDependencies": {
