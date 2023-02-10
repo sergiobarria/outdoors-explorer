@@ -1,11 +1,17 @@
 import express from 'express'
 
-import { getCampground, getCampgrounds } from '@/controllers/campgrounds.controller'
+import {
+  createCampground,
+  deleteCampground,
+  getCampground,
+  getCampgrounds,
+  updateCampground
+} from '@/controllers/campgrounds.controller'
 
 const router = express.Router()
 
-router.route('/').get(getCampgrounds)
+router.route('/').get(getCampgrounds).post(createCampground)
 
-router.route('/:id').get(getCampground)
+router.route('/:id').get(getCampground).put(updateCampground).delete(deleteCampground)
 
 export { router as campgroundsRouter }
