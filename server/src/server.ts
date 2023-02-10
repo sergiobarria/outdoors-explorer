@@ -3,7 +3,7 @@ import * as http from 'http'
 import chalk from 'chalk'
 
 import { app } from './app'
-import { logger } from '@utils/logger'
+import { logger } from '@/utils/logger'
 
 const PORT = process.env.PORT ?? 3000
 const NODE_ENV = process.env.NODE_ENV ?? 'development'

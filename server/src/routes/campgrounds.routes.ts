@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getCampground, getCampgrounds } from '@controllers/campgrounds.controller'
+import { getCampground, getCampgrounds } from '@/controllers/campgrounds.controller'
 
 const router = express.Router()
 

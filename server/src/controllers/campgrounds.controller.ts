@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import httpStatus from 'http-status'
 import asyncHandler from 'express-async-handler'
 
-import { prisma } from '@services/prisma'
+import { prisma } from '@/services/prisma'
 
 const getRecords = async (): Promise<any> => {
   return await prisma.campground.findMany()

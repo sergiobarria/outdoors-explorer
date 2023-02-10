@@ -1,8 +1,8 @@
 import express from 'express'
 
-import { morganMiddleware } from '@middleware/morgan.middleware'
+import { morganMiddleware } from '@/middleware/morgan.middleware'
 
-import { router } from '@routes/router'
+import { router } from '@/routes/router'
 
 const app = express()
 
