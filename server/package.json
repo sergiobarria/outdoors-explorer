@@ -9,25 +9,22 @@
     "build": "rimraf dist && swc ./src -d dist",
     "dev:docker": "docker compose up",
     "start": "node dist/server.js",
-    "seed": "npx prisma db seed",
-    "generate": "npx prisma generate",
+    "seed": "ts-node ./src/seed.ts",
     "lint": "ts-standard",
     "lint:fix": "ts-standard --fix",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch"
   },
-  "prisma": {
-    "seed": "ts-node src/seed.ts"
-  },
   "dependencies": {
-    "@prisma/client": "^4.10.0",
     "chalk": "4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "http-status": "^1.6.2",
-    "morgan": "^1.10.0"
+    "mongoose": "^6.9.1",
+    "morgan": "^1.10.0",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.61",

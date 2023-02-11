@@ -11,7 +11,9 @@
   "scripts": {
     "dev:client": "cd client && yarn dev",
     "dev:server": "cd server && yarn dev:docker",
-    "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\""
+    "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
+    "generate": "cd server && yarn generate",
+    "seed": "cd server && yarn seed"
   },
   "devDependencies": {
     "concurrently": "^7.6.0"

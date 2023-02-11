@@ -9,7 +9,7 @@ export const CampgroundEditPage = () => {
     <div>
       <h1>Edit Campground</h1>
 
-      <Form method="put" action={`/campgrounds/${campground.id}/edit`}>
+      <Form method="put" action={`/campgrounds/${campground._id}/edit`}>
         <fieldset>
           <label htmlFor="title">Title</label>
           <input type="text" id="title" name="title" defaultValue={campground.title} />

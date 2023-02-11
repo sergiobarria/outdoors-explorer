@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from 'react-router-dom'
 
-import type { Campground } from '@/types'
+import type { Campground } from '@/utils/validation'
 
 export const HomePage = () => {
   const campgrounds = useLoaderData() as Campground[]
@@ -9,8 +9,8 @@ export const HomePage = () => {
     <div>
       <h1>All Campgrounds</h1>
       {campgrounds?.map((campground) => (
-        <div key={campground.id}>
-          <Link to={`/campgrounds/${campground.id}`}>{campground?.title}</Link>
+        <div key={campground._id}>
+          <Link to={`/campgrounds/${campground._id}`}>{campground?.title}</Link>
         </div>
       ))}
     </div>

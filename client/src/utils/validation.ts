@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const CampgroundSchema = z.object({
-  id: z.string().optional(),
+  _id: z.string().optional(),
   title: z
     .string({
       required_error: 'Campground title is required'
@@ -22,7 +22,8 @@ export const CampgroundSchema = z.object({
       required_error: 'Campground description is required'
     })
     .min(1)
-    .max(1000)
+    .max(1000),
+  image: z.string().optional()
 })
 
 export const ErrorSchema = z.object({

@@ -4,11 +4,11 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
-COPY prisma/schema.prisma ./prisma/
+# COPY prisma/schema.prisma ./prisma/
 
-RUN npx prisma generate
+# RUN npx prisma generate
 
 COPY . .
 

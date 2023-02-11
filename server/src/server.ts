@@ -4,6 +4,7 @@ import chalk from 'chalk'
 
 import { app } from './app'
 import { logger } from '@/utils/logger'
+import { mongoConnect } from './services/mongo'
 
 const PORT = process.env.PORT ?? 3000
 const NODE_ENV = process.env.NODE_ENV ?? 'development'
@@ -12,6 +13,8 @@ let server: http.Server
 
 const startServer = async (): Promise<void> => {
   server = http.createServer(app)
+
+  await mongoConnect()
 
   try {
     server.listen(PORT, () => {

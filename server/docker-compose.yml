@@ -1,16 +1,30 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  api:
-    container_name: api
-    build: .
+  mongodb:
+    image: mongo:latest
+    command: mongod --quiet --logpath /dev/null
+    restart: unless-stopped
+    env_file: ./.env
     ports:
-      - 3000:3000
+      - '27017:27017'
+    volumes:
+      - mongodb_data_container:/data/db
+
+  app:
+    depends_on:
+      - mongodb
+    build: .
+    env_file: ./.env
+    ports:
+      - '3000:3000'
     volumes:
       - .:/app
       - /app/node_modules
     command: yarn dev
     environment:
-      - PORT=${PORT}
-      - NODE_ENV=${NODE_ENV}
-      - DATABASE_URL=${DATABASE_URL}
+      - PORT=$PORT
+      - MONGO_URI=mongodb://mongodb:27017/$DB_NAME
+
+volumes:
+  mongodb_data_container:

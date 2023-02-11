@@ -1,13 +1,30 @@
-import { PrismaClient } from '@prisma/client'
+import * as mongoose from 'mongoose'
 import chalk from 'chalk'
+import dotenv from 'dotenv'
 
 import { cities } from './data/cities'
 import { campgroundNames } from './data/campgrounds'
+import { descriptions } from './data/descriptions'
+import { CampgroundModel } from './models/campground.model'
 
-const prisma = new PrismaClient()
+dotenv.config()
+
+const MONGO_URI = process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/outdoors-explorer'
+
+// const prisma = new PrismaClient()
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log(`MongoDB connected to: ${MONGO_URI}`)
+  })
+  .catch((err: any) => {
+    console.log(err.message)
+    process.exit(1)
+  })
 
 const seedDB = async (): Promise<void> => {
-  await prisma.campground.deleteMany({})
+  await CampgroundModel.deleteMany({})
+  // await prisma.campground.deleteMany({})
 
   const sample = (array: string[]): string =>
     array[Math.floor(Math.random() * array.length)]
@@ -17,25 +34,28 @@ const seedDB = async (): Promise<void> => {
     const price = Math.floor(Math.random() * 20) + 10
     const title = sample(campgroundNames)
 
-    await prisma.campground.create({
-      data: {
-        title,
-        description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
-        location: `${cities[random1000].city}, ${cities[random1000].state}`,
-        price
-      }
+    await CampgroundModel.create({
+      title,
+      description: sample(descriptions),
+      location: `${cities[random1000].city}, ${cities[random1000].state}`,
+      price,
+      image: 'https://source.unsplash.com/collection/483251'
     })
+
+    // await prisma.campground.create({
+    //   data: {
+    //     title,
+    //     description: sample(descriptions),
+    //     location: `${cities[random1000].city}, ${cities[random1000].state}`,
+    //     price,
+    //     image: 'https://source.unsplash.com/collection/483251'
+    //   }
+    // })
 
     console.log(`Created campground ${chalk.blueBright(title)}`)
   }
+
+  process.exit(0)
 }
 
-seedDB()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (err) => {
-    console.error(err)
-    await prisma.$disconnect()
-  })
+void seedDB()

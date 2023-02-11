@@ -31,7 +31,7 @@ const router = createBrowserRouter([
           const { isError, data, message } = await createCampground(formData)
           if (isError) return { isError, message }
 
-          return data?.id ? redirect(`/campgrounds/${data?.id}`) : redirect('/')
+          return data?._id ? redirect(`/campgrounds/${data?._id}`) : redirect('/')
         }
       },
       {
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
           const { isError, data, message } = await updateCampground(id, formData)
           if (isError) return { isError, message }
 
-          return data?.id ? redirect(`/campgrounds/${data?.id}`) : redirect('/')
+          return data?._id ? redirect(`/campgrounds/${data?._id}`) : redirect('/')
         }
       }
     ]
