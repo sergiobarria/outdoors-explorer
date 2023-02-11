@@ -6,40 +6,83 @@ export const CampgroundEditPage = () => {
   const campground = useLoaderData() as Campground
 
   return (
-    <div>
-      <h1>Edit Campground</h1>
+    <div className="l container mx-auto my-28 max-w-xl rounded-lg bg-gray-700 p-8 md:p-10">
+      <h1 className="mb-6 text-3xl font-bold md:text-5xl">Edit Campground</h1>
 
-      <Form method="put" action={`/campgrounds/${campground._id}/edit`}>
+      <Form
+        method="put"
+        action={`/campgrounds/${campground._id}/edit`}
+        className="space-y-6"
+      >
         <fieldset>
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title" defaultValue={campground.title} />
+          <label htmlFor="title" className="block text-sm font-medium text-gray-200">
+            Title
+          </label>
+          <div className="mt-1">
+            <input
+              type="title"
+              name="title"
+              id="title"
+              className="block w-full rounded-md border-gray-300 p-3 text-zinc-800 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              defaultValue={campground.title}
+            />
+          </div>
         </fieldset>
 
         <fieldset>
-          <label htmlFor="location">Location</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            defaultValue={campground.location}
-          />
+          <label htmlFor="location" className="block text-sm font-medium text-gray-200">
+            Location
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              name="location"
+              id="location"
+              className="block w-full rounded-md border-gray-300 p-3 text-zinc-800 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              defaultValue={campground.location}
+            />
+          </div>
         </fieldset>
 
         <fieldset>
-          <label htmlFor="price">Price</label>
-          <input type="number" id="price" name="price" defaultValue={campground.price} />
+          <label htmlFor="price" className="block text-sm font-medium text-gray-200">
+            Price
+          </label>
+          <div className="mt-1">
+            <input
+              type="number"
+              name="price"
+              id="price"
+              className="block w-full rounded-md border-gray-300 p-3 text-zinc-800 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              defaultValue={campground.price}
+            />
+          </div>
         </fieldset>
 
         <fieldset>
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            defaultValue={campground.description}
-          ></textarea>
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-200"
+          >
+            Description
+          </label>
+          <div className="mt-1">
+            <textarea
+              name="description"
+              rows={6}
+              id="description"
+              className="block w-full rounded-md border-gray-300 p-3 text-zinc-800 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              defaultValue={campground.description}
+            />
+          </div>
         </fieldset>
 
-        <button type="submit">Update Campground</button>
+        <button
+          type="submit"
+          className="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          Update Campground
+        </button>
       </Form>
     </div>
   )

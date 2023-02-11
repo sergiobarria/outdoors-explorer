@@ -1,7 +1,10 @@
-import { PropsWithChildren } from 'react'
-
 import { AppRouter } from './RouterProvider'
+import { ThemeProvider } from './ThemeProvider'
 
-export const AppProvider = ({ children }: PropsWithChildren) => {
-  return <AppRouter />
+export const AppProvider = () => {
+  return (
+    // <ThemeProvider>
+    <AppRouter />
+    // </ThemeProvider>
+  )
 }
