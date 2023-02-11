@@ -18,10 +18,14 @@ export const CampgroundDetailsPage = () => {
         {campground?.title} - ID: {campground.id}
       </h1>
       <p>{campground?.location}</p>
-      <Link to={`/campgrounds/${campground.id}/edit`}>Edit</Link>
-      <button type="button" onClick={() => handleDeleteCampground(campground.id)}>
-        Delete
-      </button>
+      <div>
+        <Link to={`/campgrounds/${campground.id}/edit`} role="button">
+          Edit
+        </Link>
+        <button type="button" onClick={() => handleDeleteCampground(campground.id)}>
+          Delete
+        </button>
+      </div>
     </div>
   )
 }
