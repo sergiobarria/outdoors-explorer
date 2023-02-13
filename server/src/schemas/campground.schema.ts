@@ -5,7 +5,7 @@ const campgroundSchema = z.object({
   location: z.string().min(1).max(100),
   price: z.number().min(0),
   description: z.string().min(1).max(10000),
-  image: z.string().optional()
+  image: z.string()
 })
 
 export const createCampgroundSchema = z.object({

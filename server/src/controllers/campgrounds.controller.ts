@@ -2,13 +2,13 @@ import { Request, Response, NextFunction } from 'express'
 import httpStatus from 'http-status'
 import asyncHandler from 'express-async-handler'
 
-import { CampgroundModel } from '@/models/campground.model'
 import {
   GetCampgroundType,
   CreateCampgroundType,
   UpdateCampgroundType,
   DeleteCampgroundType
 } from '@/schemas/campground.schema'
+import { prisma } from '@/services/prisma'
 
 /**
  * @desc: Get all campgrounds
@@ -17,8 +17,7 @@ import {
  */
 export const getCampgrounds = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const campgrounds = await CampgroundModel.find({}).select('-__v')
-    // const campgrounds = await prisma.campground.findMany()
+    const campgrounds = await prisma.campground.findMany()
 
     res.status(httpStatus.OK).json({
       success: true,
@@ -37,7 +36,9 @@ export const getCampground = asyncHandler(
   async (req: Request<GetCampgroundType>, res: Response, next: NextFunction) => {
     const { id } = req.params
 
-    const campground = await CampgroundModel.findById(id).select('-__v')
+    const campground = await prisma.campground.findUnique({
+      where: { id }
+    })
 
     // if (!campground) {
     //   return next(new Error('Campground not found'))
@@ -59,10 +60,9 @@ export const createCampground = asyncHandler(
   async (req: Request<unknown, unknown, CreateCampgroundType>, res: Response) => {
     const { body } = req
 
-    const campground = await CampgroundModel.create(body)
-    // const campground = await prisma.campground.create({
-    //   data: req.body
-    // })
+    const campground = await prisma.campground.create({
+      data: body
+    })
 
     res.status(httpStatus.CREATED).json({
       success: true,
@@ -84,9 +84,10 @@ export const updateCampground = asyncHandler(
     const { id } = req.params
     const { body } = req
 
-    const campground = await CampgroundModel.findByIdAndUpdate(id, body, {
-      new: true
-    }).select('-__v')
+    const campground = await prisma.campground.update({
+      where: { id },
+      data: body
+    })
 
     res.status(httpStatus.OK).json({
       success: true,
@@ -104,7 +105,10 @@ export const deleteCampground = asyncHandler(
   async (req: Request<DeleteCampgroundType>, res: Response) => {
     const { id } = req.params
 
-    await CampgroundModel.findByIdAndDelete(id)
+    await prisma.campground.delete({
+      where: { id }
+    })
+    // await CampgroundModel.findByIdAndDelete(id)
 
     res.status(httpStatus.NO_CONTENT).json({
       success: true,

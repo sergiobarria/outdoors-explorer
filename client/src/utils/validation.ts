@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const CampgroundSchema = z.object({
-  _id: z.string().optional(),
+  id: z.string().optional(),
   title: z
     .string({
       required_error: 'Campground title is required'
