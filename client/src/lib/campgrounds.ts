@@ -35,6 +35,7 @@ export const getCampgrounds = async () => {
   const {
     data: { data }
   } = await axios.get<GetCampgroundsResponse>(`${API_URL}/api/v1/campgrounds`)
+
   return data
 }
 
@@ -45,36 +46,29 @@ export const getCampground = async (id: string) => {
   return data
 }
 
-export const createCampground = async (data: FormData) => {
-  const campground = mapFormDataToCampground(data)
-
+export const createCampground = async (formData: Record<string, any>) => {
   try {
-    const validatedCampground = CampgroundSchema.parse(campground)
-
     const {
       data: { data, success }
     } = await axios.post<CreateCampgroundResponse>(
       `${API_URL}/api/v1/campgrounds`,
-      validatedCampground
+      formData
     )
 
     return { isError: false, message: '', data, success }
   } catch (error) {
+    console.log(error)
     return { isError: true, message: 'Invalid campground data' }
   }
 }
 
-export const updateCampground = async (id: string, data: FormData) => {
-  const campground = mapFormDataToCampground(data)
-
+export const updateCampground = async (id: string, formData: Record<string, any>) => {
   try {
-    const validatedCampground = CampgroundSchema.parse(campground)
-
     const {
       data: { data }
     } = await axios.put<UpdateCampgroundResponse>(
       `${API_URL}/api/v1/campgrounds/${id}`,
-      validatedCampground
+      formData
     )
 
     return { isError: false, message: '', data }

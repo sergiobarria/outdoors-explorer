@@ -14,9 +14,7 @@ export const CampgroundSchema = z.object({
     })
     .min(1)
     .max(100),
-  price: z.number({
-    required_error: 'Campground price is required'
-  }),
+  price: z.number().min(0),
   description: z
     .string({
       required_error: 'Campground description is required'

@@ -13,7 +13,8 @@
     "dev:server": "cd server && yarn dev",
     "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
     "generate": "cd server && yarn generate",
-    "seed": "cd server && yarn seed"
+    "seed": "cd server && yarn seed",
+    "postinstall": "yarn generate"
   },
   "devDependencies": {
     "concurrently": "^7.6.0"

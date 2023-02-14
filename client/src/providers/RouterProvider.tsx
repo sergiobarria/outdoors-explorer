@@ -1,52 +1,40 @@
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { RootLayout } from '@/layouts'
-import { HomePage, CampgroundDetailsPage, NewCampgroundPage } from '@/pages'
-import { getCampgrounds, getCampground, createCampground, updateCampground } from '@/lib'
-import { CampgroundEditPage } from '@/pages/CampgroundEditPage'
+import {
+  HomePage,
+  CampgroundDetailsPage,
+  NewCampgroundPage,
+  CampgroundEditPage
+} from '@/pages'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <div>404</div>,
+    errorElement: <div>Something went wrong</div>, // TODO: Add global error page
     children: [
       {
         index: true,
         path: '/',
         element: <HomePage />,
-        loader: async () => await getCampgrounds()
+        loader: HomePage.loader
       },
       {
         path: '/campgrounds/:id',
         element: <CampgroundDetailsPage />,
-        loader: async ({ params }) => await getCampground(params.id as string)
+        loader: CampgroundDetailsPage.loader
       },
       {
         path: '/campgrounds/new',
         element: <NewCampgroundPage />,
-        action: async ({ request }) => {
-          const formData = await request.formData()
-
-          const { isError, data, message } = await createCampground(formData)
-          if (isError) return { isError, message }
-
-          return data?._id ? redirect(`/campgrounds/${data?._id}`) : redirect('/')
-        }
+        action: NewCampgroundPage.action
       },
       {
         path: '/campgrounds/:id/edit',
         element: <CampgroundEditPage />,
-        loader: async ({ params }) => await getCampground(params.id as string),
-        action: async ({ request, params }) => {
-          const { id } = params as { id: string }
-          const formData = await request.formData()
-
-          const { isError, data, message } = await updateCampground(id, formData)
-          if (isError) return { isError, message }
-
-          return data?._id ? redirect(`/campgrounds/${data?._id}`) : redirect('/')
-        }
+        loader: CampgroundEditPage.loader,
+        action: CampgroundEditPage.action
       }
     ]
   }

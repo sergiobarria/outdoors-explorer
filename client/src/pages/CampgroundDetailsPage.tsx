@@ -1,8 +1,8 @@
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useLoaderData, useNavigate, LoaderFunctionArgs } from 'react-router-dom'
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 
-import { deleteCampground } from '@/lib'
+import { deleteCampground, getCampground } from '@/lib'
 import type { Campground } from '@/utils/validation'
 
 import { StarIcon } from '@heroicons/react/20/solid'
@@ -91,22 +91,16 @@ export const CampgroundDetailsPage = () => {
         {/* Product form */}
         <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
           <section aria-labelledby="options-heading">
-            <h2 id="options-heading" className="sr-only">
-              campground options
-            </h2>
-
             <div className="mt-10 flex items-center justify-between gap-6">
               <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-3 px-8 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                onClick={() => navigate(`/campgrounds/${campground._id}/edit`)}
+                className="btn-primary btn flex-1"
+                onClick={() => navigate(`/campgrounds/${campground.id}/edit`)}
               >
                 Edit
               </button>
               <button
-                type="button"
-                className="flex w-full items-center justify-center rounded-md border border-red-300 bg-white px-8 py-4 text-sm font-medium leading-4 text-red-700 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                onClick={() => handleDeleteCampground(campground._id as string)}
+                className="btn-outline btn-error btn flex-1"
+                onClick={() => handleDeleteCampground(campground.id as string)}
               >
                 Delete
               </button>
@@ -116,4 +110,9 @@ export const CampgroundDetailsPage = () => {
       </div>
     </>
   )
+}
+
+CampgroundDetailsPage.loader = async ({ params }: LoaderFunctionArgs) => {
+  const { id } = params
+  return await getCampground(id as string)
 }
