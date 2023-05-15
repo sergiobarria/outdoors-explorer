@@ -1,35 +1,30 @@
-import * as http from 'http'
+import * as http from 'http';
 
-import chalk from 'chalk'
+import config from 'config';
+import chalk from 'chalk';
 
-import { app } from './app'
-import { logger } from '@/utils/logger'
+import { app } from './app';
+import { logger } from './utils';
 
-const PORT = process.env.PORT ?? 3000
-const NODE_ENV = process.env.NODE_ENV ?? 'development'
+let server: http.Server;
+const PORT = config.get<number>('PORT');
+const NODE_ENV = config.get<string>('NODE_ENV');
 
-let server: http.Server
+async function startServer(): Promise<void> {
+    server = http.createServer(app);
 
-const startServer = async (): Promise<void> => {
-  server = http.createServer(app)
-
-  try {
-    server.listen(PORT, () => {
-      logger.info(
-        chalk.blueBright(
-          `Server is running on port ${chalk.bold(PORT)} in ${chalk.bold(NODE_ENV)} mode`
-        )
-      )
-    })
-  } catch (error) {
-    logger.error(chalk.redBright(error))
-    process.exit(1)
-  }
+    try {
+        server.listen(PORT, () => {
+            logger.info(
+                chalk.magentaBright.bold.underline(
+                    `⇨ 🚀 Server running in ${NODE_ENV} mode and listening on port ${PORT}`
+                )
+            );
+        });
+    } catch (err: any) {
+        logger.error(chalk.redBright.bold.underline(`❌ Server error: ${err.message}`));
+        process.exit(1);
+    }
 }
 
-void startServer()
-
-process.on('SIGTERM', () => {
-  // logger.info('SIGTERM received, exiting')
-  process.exit(0)
-})
+void startServer();

@@ -1,22 +1,37 @@
 {
-  "name": "outdoors-explorer",
-  "description": "Full-stack web application for exploring the outdoors website built with React, Node.js, Express, MongoDB",
-  "version": "0.0.1",
-  "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "client",
-    "server"
-  ],
-  "scripts": {
-    "dev:client": "cd client && yarn dev",
-    "dev:server": "cd server && yarn dev",
-    "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
-    "generate": "cd server && yarn generate",
-    "seed": "cd server && yarn seed",
-    "postinstall": "yarn generate"
-  },
-  "devDependencies": {
-    "concurrently": "^7.6.0"
-  }
+    "name": "outdoors-explorer",
+    "description": "Full-stack web application for exploring the outdoors website built with React, Node.js, Express, MongoDB",
+    "version": "0.0.1",
+    "license": "MIT",
+    "private": true,
+    "workspaces": [
+        "server"
+    ],
+    "scripts": {
+        "dev-server": "npm run dev --prefix server",
+        "dev": "npm run dev-server",
+        "build-server": "npm run build --prefix server",
+        "build": "npm run build-server",
+        "lint-server": "npm run lint --prefix server",
+        "lint": "npm run lint-server",
+        "start-server": "npm run start --prefix server",
+        "start": "npm run start-server",
+        "format-server": "npm run format --prefix server",
+        "format": "npm run format-server",
+        "typecheck-server": "npm run typecheck --prefix server",
+        "typecheck": "npm run typecheck-server",
+        "lint-staged": "lint-staged",
+        "prepare": "husky install"
+    },
+    "devDependencies": {
+        "concurrently": "^7.6.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.2"
+    },
+    "lint-staged": {
+        "server/**/*.{js,ts}": [
+            "npm run lint-server",
+            "npm run format-server"
+        ]
+    }
 }
