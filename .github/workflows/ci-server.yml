@@ -1,0 +1,30 @@
+name: ci server
+
+on:
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    build-and-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+
+            - name: setup node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+
+            - name: install dependencies
+              run: npm ci
+
+            - name: build server
+              run: npm run build-server
+
+            - name: lint server
+              run: npm run lint-server
+
+            - name: typecheck server
+              run: npm run typecheck-server

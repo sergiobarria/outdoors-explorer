@@ -1,21 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "ES2016",
-    "allowJs": true,
-    "strict": true,
-    "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
+    "extends": "@tsconfig/node18/tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": "src",
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
-    "typeRoots": ["./node_modules/@types", "./src/@types"]
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", ".eslintrc.js"]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist", "config/*"]
 }

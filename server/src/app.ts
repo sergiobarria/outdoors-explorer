@@ -1,18 +1,23 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import config from 'config';
 
-import { morganMiddleware } from '@/middleware/morgan.middleware'
+import { envs } from './constants';
+import { morganMiddleware } from './middleware';
 
-import { router } from '@/routes/router'
+export const app = express();
 
-const app = express()
+const NODE_ENV = config.get<string>('NODE_ENV');
 
-// Middlewares
-app.use(express.json())
-app.use(morganMiddleware)
-app.use(cors())
+// ===== Apply middlewares 👇🏼 =====
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.use('/api/v1', router)
+if (NODE_ENV === envs.DEVELOPMENT) {
+    app.use(morganMiddleware);
+}
 
-export { app }
+// ===== Apply routes 👇🏼 =====
+
+// Not found route handler
+
+// ===== Apply global error handler 👇🏼 =====

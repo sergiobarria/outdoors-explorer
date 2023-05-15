@@ -1,3 +1,6 @@
+# system files
+.DS_Store
+
 node_modules
 dist
 logs
@@ -8,3 +11,6 @@ logs
 .env.development.local
 .env.test.local
 .env.production.local
+
+# others
+_old
