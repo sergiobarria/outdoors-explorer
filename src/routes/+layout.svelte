@@ -3,7 +3,9 @@
 	import inter from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 	import interItalic from '@fontsource-variable/inter/files/inter-latin-wght-italic.woff2?url';
 
+	import AppHeader from '$lib/components/site/app-header.svelte';
 	import '../app.css';
+	import AppFooter from '$lib/components/site/app-footer.svelte';
 
 	let { children }: { children: Snippet } = $props();
 </script>
@@ -16,4 +18,10 @@
 	<title>Outdoors Explorers</title>
 </svelte:head>
 
-{@render children()}
+<div class="flex min-h-screen flex-col bg-background text-foreground">
+	<AppHeader />
+	<main class="flex-1">
+		{@render children()}
+	</main>
+	<AppFooter />
+</div>
