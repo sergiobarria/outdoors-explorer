@@ -58,8 +58,8 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-3-cover.webp',
 		images: ['tour-3-1.webp', 'tour-3-2.webp', 'tour-3-3.webp'],
 		start_dates: [
-			'2022-01-05T10:00:00.000Z',
-			'2022-02-12T10:00:00.000Z',
+			'2025-01-05T10:00:00.000Z',
+			'2025-02-12T10:00:00.000Z',
 			'2023-01-06T10:00:00.000Z'
 		]
 	},
@@ -102,8 +102,8 @@ export const TOURS_SIMPLE = [
 		images: ['tour-5-1.webp', 'tour-5-2.webp', 'tour-5-3.webp'],
 		start_dates: [
 			'2024-08-05T10:00:00.000Z',
-			'2022-03-20T10:00:00.000Z',
-			'2022-08-12T10:00:00.000Z'
+			'2025-03-20T10:00:00.000Z',
+			'2025-08-12T10:00:00.000Z'
 		]
 	},
 	{
@@ -124,7 +124,7 @@ export const TOURS_SIMPLE = [
 		start_dates: [
 			'2024-07-19T10:00:00.000Z',
 			'2024-09-06T10:00:00.000Z',
-			'2022-03-18T10:00:00.000Z'
+			'2025-03-18T10:00:00.000Z'
 		]
 	},
 	{
@@ -164,9 +164,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-8-cover.webp',
 		images: ['tour-8-1.webp', 'tour-8-2.webp', 'tour-8-3.webp'],
 		start_dates: [
-			'2024-03-23T10:00:00.000Z',
-			'2024-10-25T10:00:00.000Z',
-			'2022-01-30T10:00:00.000Z'
+			'2025-03-23T10:00:00.000Z',
+			'2025-10-25T10:00:00.000Z',
+			'2025-01-30T10:00:00.000Z'
 		],
 		is_featured: true
 	},
@@ -186,9 +186,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-9-cover.webp',
 		images: ['tour-9-1.webp', 'tour-9-2.webp', 'tour-9-3.webp'],
 		start_dates: [
-			'2024-12-16T10:00:00.000Z',
-			'2022-01-16T10:00:00.000Z',
-			'2022-12-12T10:00:00.000Z'
+			'2025-12-16T10:00:00.000Z',
+			'2025-01-16T10:00:00.000Z',
+			'2025-12-12T10:00:00.000Z'
 		]
 	},
 	{
@@ -207,9 +207,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-1-cover.webp',
 		images: ['tour-1-1.webp', 'tour-1-2.webp', 'tour-1-3.webp'],
 		start_dates: [
-			'2024-04-25T10:00:00.000Z',
-			'2024-07-20T10:00:00.000Z',
-			'2024-10-05T10:00:00.000Z'
+			'2025-04-25T10:00:00.000Z',
+			'2025-07-20T10:00:00.000Z',
+			'2025-10-05T10:00:00.000Z'
 		]
 	},
 	{
@@ -228,9 +228,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-2-cover.webp',
 		images: ['tour-2-1.webp', 'tour-2-2.webp', 'tour-2-3.webp'],
 		start_dates: [
-			'2024-05-15T09:00:00.000Z',
-			'2024-08-10T09:00:00.000Z',
-			'2024-11-20T09:00:00.000Z'
+			'2025-05-15T09:00:00.000Z',
+			'2025-08-10T09:00:00.000Z',
+			'2025-11-20T09:00:00.000Z'
 		]
 	},
 	{
@@ -249,9 +249,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-3-cover.webp',
 		images: ['tour-3-1.webp', 'tour-3-2.webp', 'tour-3-3.webp'],
 		start_dates: [
-			'2024-06-10T08:00:00.000Z',
-			'2024-09-15T08:00:00.000Z',
-			'2024-12-05T08:00:00.000Z'
+			'2025-06-10T08:00:00.000Z',
+			'2025-09-15T08:00:00.000Z',
+			'2025-12-05T08:00:00.000Z'
 		]
 	},
 	{
@@ -270,9 +270,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-4-cover.webp',
 		images: ['tour-4-1.webp', 'tour-4-2.webp', 'tour-4-3.webp'],
 		start_dates: [
-			'2024-05-05T11:00:00.000Z',
-			'2024-08-25T11:00:00.000Z',
-			'2024-11-10T11:00:00.000Z'
+			'2025-05-05T11:00:00.000Z',
+			'2025-08-25T11:00:00.000Z',
+			'2025-11-10T11:00:00.000Z'
 		]
 	},
 	{
@@ -291,9 +291,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-5-cover.webp',
 		images: ['tour-5-1.webp', 'tour-5-2.webp', 'tour-5-3.webp'],
 		start_dates: [
-			'2024-04-20T12:00:00.000Z',
-			'2024-07-05T12:00:00.000Z',
-			'2024-10-15T12:00:00.000Z'
+			'2025-04-20T12:00:00.000Z',
+			'2025-07-05T12:00:00.000Z',
+			'2025-10-15T12:00:00.000Z'
 		]
 	},
 	{
@@ -312,9 +312,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-6-cover.webp',
 		images: ['tour-6-1.webp', 'tour-6-2.webp', 'tour-6-3.webp'],
 		start_dates: [
-			'2024-06-01T14:00:00.000Z',
-			'2024-09-10T14:00:00.000Z',
-			'2024-12-20T14:00:00.000Z'
+			'2025-06-01T14:00:00.000Z',
+			'2025-09-10T14:00:00.000Z',
+			'2025-12-20T14:00:00.000Z'
 		]
 	},
 	{
@@ -333,9 +333,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-7-cover.webp',
 		images: ['tour-7-1.webp', 'tour-7-2.webp', 'tour-7-3.webp'],
 		start_dates: [
-			'2024-05-10T13:00:00.000Z',
-			'2024-08-20T13:00:00.000Z',
-			'2024-11-05T13:00:00.000Z'
+			'2025-05-10T13:00:00.000Z',
+			'2025-08-20T13:00:00.000Z',
+			'2025-11-05T13:00:00.000Z'
 		]
 	},
 	{
@@ -354,9 +354,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-8-cover.webp',
 		images: ['tour-8-1.webp', 'tour-8-2.webp', 'tour-8-3.webp'],
 		start_dates: [
-			'2024-06-15T15:00:00.000Z',
-			'2024-09-05T15:00:00.000Z',
-			'2024-12-10T15:00:00.000Z'
+			'2025-06-15T15:00:00.000Z',
+			'2025-09-05T15:00:00.000Z',
+			'2025-12-10T15:00:00.000Z'
 		]
 	},
 	{
@@ -375,9 +375,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-9-cover.webp',
 		images: ['tour-9-1.webp', 'tour-9-2.webp', 'tour-9-3.webp'],
 		start_dates: [
-			'2024-04-30T16:00:00.000Z',
-			'2024-07-15T16:00:00.000Z',
-			'2024-10-25T16:00:00.000Z'
+			'2025-04-30T16:00:00.000Z',
+			'2025-07-15T16:00:00.000Z',
+			'2025-10-25T16:00:00.000Z'
 		]
 	},
 	{
@@ -396,9 +396,9 @@ export const TOURS_SIMPLE = [
 		image_cover: 'tour-10-cover.webp',
 		images: ['tour-10-1.webp', 'tour-10-2.webp', 'tour-10-3.webp'],
 		start_dates: [
-			'2024-05-20T17:00:00.000Z',
-			'2024-08-15T17:00:00.000Z',
-			'2024-11-15T17:00:00.000Z'
+			'2025-05-20T17:00:00.000Z',
+			'2025-08-15T17:00:00.000Z',
+			'2025-11-15T17:00:00.000Z'
 		]
 	}
 ];

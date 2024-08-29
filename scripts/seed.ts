@@ -1,20 +1,20 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+// import { fileURLToPath } from 'node:url';
 
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import slugify from 'slugify';
 import * as dotenv from 'dotenv';
 
-import { toursTable, startDatesTable, imagesTable } from '../src/lib/db/schema';
+import { toursTable, startDatesTable, imagesTable } from '../src/db/schema';
 import { TOURS_SIMPLE } from '../data/tours-simple';
 import { uploadImage } from './upload-image';
 
 // Manually create __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-dotenv.config();
+dotenv.config({ path: '.env.local' });
 
 const { DATABASE_URL, DATABASE_AUTH_TOKEN } = process.env;
 

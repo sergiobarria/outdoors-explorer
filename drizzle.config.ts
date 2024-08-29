@@ -1,7 +1,7 @@
 import { defineConfig } from 'drizzle-kit';
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '.env.local' });
 
 const { DATABASE_URL, DATABASE_AUTH_TOKEN } = process.env;
 
@@ -10,7 +10,7 @@ if (!DATABASE_URL || !DATABASE_AUTH_TOKEN) {
 }
 
 export default defineConfig({
-	schema: 'src/lib/db/schema.ts',
+	schema: 'src/db/schema.ts',
 	out: 'drizzle',
 	dialect: 'sqlite',
 	driver: 'turso',
