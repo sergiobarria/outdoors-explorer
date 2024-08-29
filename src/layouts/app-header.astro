@@ -1,0 +1,46 @@
+---
+import { Button } from '@/components/ui/button';
+import { LogInIcon, MountainIcon } from 'lucide-react';
+
+const links = [
+	// { name: 'Home', href: '/' },
+	{ name: 'Tours', href: '/tours' },
+	{ name: 'About', href: '/about' },
+	{ name: 'Contact', href: '/contact' }
+];
+
+const { pathname } = Astro.url;
+---
+
+<header class="flex h-16 items-center justify-between border-b border-gray-100 px-4 md:px-6">
+	<div class="flex items-center gap-10">
+		<a href="/" class="flex items-center justify-center">
+			<MountainIcon className="size-8 text-primary" />
+			<span class="ml-2 text-lg font-semibold">Outdoors Explorers</span>
+		</a>
+
+		<nav class="flex gap-4 sm:gap-6">
+			{
+				links.map(({ name, href }) => (
+					<a
+						href={href}
+						data-astro-prefetch
+						class:list={[
+							'text-sm font-light transition-colors hover:text-primary',
+							pathname === href ? 'font-semibold text-primary' : 'text-gray-700'
+						]}
+					>
+						{name}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+
+	<div>
+		<a href="/login" class="flex items-center rounded-lg bg-primary px-3 py-2 text-white">
+			<LogInIcon className="mr-2 size-4" />
+			<span>Login</span>
+		</a>
+	</div>
+</header>

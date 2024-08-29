@@ -1,0 +1,37 @@
+---
+import { db } from '@/db';
+import MainLayout from '@/layouts/main-layout.astro';
+import { getImageUrl } from '@/lib/s3';
+
+export const prerender = false;
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/404');
+
+async function getTourBySlug() {
+	const tour = await db.query.toursTable.findFirst({
+		where: (records, { eq }) => eq(records.slug, slug as string),
+		columns: { created: false, modified: false },
+		with: {
+			images: {
+				columns: { imageKey: true }
+			},
+			startDates: {
+				columns: { date: true }
+			}
+		}
+	});
+
+	if (!tour) return null;
+
+	return {
+		...tour,
+		images: tour.images.map((image) => getImageUrl(image.imageKey)),
+		startDates: tour.startDates.map((date) => date.date)
+	};
+}
+
+const tour = await getTourBySlug();
+console.log('🚀 ~ tour:', tour);
+---
+
+<MainLayout> tour details -> slug: {slug} </MainLayout>

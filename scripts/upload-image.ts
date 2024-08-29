@@ -5,7 +5,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { nanoid } from 'nanoid';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 const {
 	CLOUDFLARE_R2_BUCKET_NAME,
@@ -42,7 +42,7 @@ export async function uploadImage(filepath: string) {
 	const fileExtension = path.extname(filepath);
 	const uniqueHash = nanoid(10);
 	const newFileName = `${fileName}-${uniqueHash}${fileExtension}`;
-	const key = `tours-images/${newFileName}`;
+	const key = `tours/${newFileName}`;
 
 	const command = new PutObjectCommand({
 		Bucket: CLOUDFLARE_R2_BUCKET_NAME!,
@@ -56,6 +56,6 @@ export async function uploadImage(filepath: string) {
 		return key;
 	} catch (err: unknown) {
 		console.error('=> ❌ Error uploading image: ' + key);
-		throw err;
+		return null;
 	}
 }
