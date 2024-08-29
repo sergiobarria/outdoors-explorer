@@ -20,7 +20,7 @@
 
 <div class="flex min-h-screen flex-col bg-background text-foreground">
 	<AppHeader />
-	<main class="flex-1">
+	<main class="flex-1 pb-16">
 		{@render children()}
 	</main>
 	<AppFooter />
