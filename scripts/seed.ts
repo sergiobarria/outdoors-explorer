@@ -8,6 +8,7 @@ import * as dotenv from 'dotenv';
 
 import { toursTable, startDatesTable, imagesTable } from '../src/db/schema';
 import { TOURS_SIMPLE } from '../data/tours-simple';
+import { TOUR_IMAGES } from '../data/tour-images';
 import { uploadImage } from './upload-image';
 
 // Manually create __dirname
@@ -66,21 +67,39 @@ async function seedTours() {
 		}
 
 		// Upload images to R2
-		for (const image of tour.images) {
-			const filepath = path.join(__dirname, '..', 'data', 'images', image);
-			const key = await uploadImage(filepath);
-			if (!key) {
-				console.error('=> ❌ Error uploading image:', image);
-				continue;
-			}
-
-			await db.insert(imagesTable).values({
-				tourId,
-				imageKey: key
-			});
-
-			console.log(`=> ✅ Inserted image: ${image} for tour: ${tour.name}`);
+		const tourImages = TOUR_IMAGES.find((ti) => ti.id === tour.id);
+		if (!tourImages) {
+			console.error('=> ❌ Error finding images for tour:', tour.name);
+			continue;
 		}
+
+		const data = tourImages.images.map((key) => ({ tourId, imageKey: key }));
+		await db.insert(imagesTable).values(data);
+		console.log(`=> ✅ Inserted images for tour: ${tour.name}`);
+		// for (const imageKey of tourImages.images) {
+		// 	const data =
+		// 	// await db.insert(imagesTable).values({
+		// 	// 	tourId,
+		// 	// 	imageKey
+		// 	// });
+
+		// 	// console.log(`=> ✅ Inserted image: ${imageKey} for tour: ${tour.name}`);
+		// }
+		// for (const image of tour.images) {
+		// 	const filepath = path.join(__dirname, '..', 'data', 'images', image);
+		// 	const key = await uploadImage(filepath);
+		// 	if (!key) {
+		// 		console.error('=> ❌ Error uploading image:', image);
+		// 		continue;
+		// 	}
+
+		// 	await db.insert(imagesTable).values({
+		// 		tourId,
+		// 		imageKey: key
+		// 	});
+
+		// 	console.log(`=> ✅ Inserted image: ${image} for tour: ${tour.name}`);
+		// }
 	}
 }
 
@@ -88,6 +107,8 @@ async function cleanTables() {
 	console.log('=> 🗑️ Deleting existing data...');
 
 	await db.delete(toursTable);
+	await db.delete(startDatesTable);
+	await db.delete(imagesTable);
 }
 
 async function main() {
