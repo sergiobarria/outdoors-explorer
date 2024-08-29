@@ -1,0 +1,45 @@
+---
+import { like } from 'drizzle-orm';
+
+import { getImageUrl } from '@/lib/s3';
+import TourCard from '@/components/tours/tour-card.astro';
+import { db } from '@/db';
+import { toursTable } from '@/db/schema';
+
+async function getFeaturedTours(searchQuery: string | null, limit = 12) {
+	const whereCondition = searchQuery
+		? like(toursTable.name, `%${searchQuery.toLowerCase()}%`)
+		: undefined;
+	// ? sql`LOWER(${toursTable.name}) LIKE LOWER(${`%${searchQuery}%`})` -> Alternative search with SQL template string
+
+	const tours = await db.query.toursTable.findMany({
+		where: whereCondition,
+		columns: { created: false, modified: false, description: false },
+		with: {
+			images: {
+				columns: { imageKey: true },
+				limit: 1
+			},
+			startDates: {
+				columns: { date: true }
+			}
+		}
+	});
+
+	return tours.map((tour) => ({
+		...tour,
+		images: tour.images.map((image) => getImageUrl(image.imageKey)),
+		startDates: tour.startDates.map((date) => date.date)
+	}));
+}
+
+const refererUrl = new URL(Astro.request.headers.get('referer') as string);
+const searchQuery = refererUrl.searchParams.get('q');
+
+const tours = await getFeaturedTours(searchQuery);
+---
+
+{tours.length === 0 && <div class="text-center text-gray-500">No tours found.</div>}
+<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+	{tours.map((tour) => <TourCard tour={tour} />)}
+</div>

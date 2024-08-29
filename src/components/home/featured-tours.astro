@@ -1,16 +1,9 @@
 ---
 import { eq } from 'drizzle-orm';
-import {
-	CalendarIcon,
-	DollarSignIcon,
-	FootprintsIcon,
-	HourglassIcon,
-	UserIcon
-} from 'lucide-react';
 
 import { db } from '@/db';
 import { getImageUrl } from '@/lib/s3';
-import { formatCurrency, formatDate } from '@/lib/utils';
+import TourCard from '@/components/tours/tour-card.astro';
 
 async function getFeaturedTours() {
 	const tours = await db.query.toursTable.findMany({
@@ -38,71 +31,4 @@ async function getFeaturedTours() {
 const featuredTours = await getFeaturedTours();
 ---
 
-{
-	featuredTours.map((tour) => (
-		<div class="group flex flex-col space-y-4">
-			<div class="relative h-full overflow-hidden rounded-lg">
-				<img
-					src={tour.images.at(0) as string}
-					alt={tour.name}
-					width={600}
-					height={400}
-					class="h-64 w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
-				/>
-				{/* Image gradient */}
-				<div class="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary via-primary to-lime-500 opacity-50 transition-opacity duration-300 group-hover:opacity-0" />
-			</div>
-
-			<div class="flex h-full flex-col">
-				<div class="mb-4 flex flex-col space-y-2">
-					<a href={`/tours/${tour.slug}`} class="underline-offset-2 hover:underline">
-						<h3 class="text-xl font-bold">{tour.name}</h3>
-					</a>
-					<p class="text-gray-500">{tour.summary}</p>
-				</div>
-
-				<div class="mt-auto grid grid-cols-2 gap-3 text-sm text-gray-500">
-					<div class="flex items-center space-x-2">
-						<CalendarIcon className="size-5 text-primary" />
-						<span>{formatDate(tour.startDates?.at(0) || '')}</span>
-					</div>
-					{/* <div class="flex items-center space-x-2">
-                        <DollarSignIcon class="size-5 text-primary" />
-                        <span>{formatCurrency(tour.price / 100)}</span>
-                    </div> */}
-					<div class="flex items-center space-x-2">
-						<UserIcon className="size-5 text-primary" />
-						<span class="capitalize">{tour.maxGroupSize} people</span>
-					</div>
-					<div class="flex items-center space-x-2">
-						<HourglassIcon className="size-5 text-primary" />
-						<span class="capitalize">{tour.duration} days</span>
-					</div>
-					<div class="flex items-center space-x-2">
-						<FootprintsIcon className="size-5 text-primary" />
-						<span class="capitalize">{tour.difficulty}</span>
-					</div>
-				</div>
-
-				<hr class="my-4 border-gray-200" />
-
-				{/* Display the Tour price */}
-				<div class="flex items-center justify-between">
-					<div class="flex items-center space-x-2">
-						<DollarSignIcon className="size-5 text-primary" />
-						<span class="text-xl font-semibold">
-							{formatCurrency(tour.price / 100)}
-						</span>
-					</div>
-
-					<a
-						href={`/tours/${tour.slug}`}
-						class="flex items-center rounded-lg bg-primary px-3 py-2 text-white hover:bg-primary/90"
-					>
-						See Details
-					</a>
-				</div>
-			</div>
-		</div>
-	))
-}
+{featuredTours.map((tour) => <TourCard tour={tour} />)}

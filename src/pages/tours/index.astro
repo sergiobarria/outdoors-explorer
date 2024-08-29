@@ -1,5 +1,61 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
+import AllToursList from '@/components/tours/all-tours-list.astro';
+import { TourCardSkeleton } from '@/components/home/tour-card-skeleton';
 ---
 
-<MainLayout> tours </MainLayout>
+<MainLayout>
+	<section class="py-12 md:py-16">
+		<div class="container px-4 md:px-6">
+			<h1 class="mb-8 text-3xl font-bold">Check All Tours</h1>
+
+			<div class="mb-6 w-full max-w-[400px] md:w-1/2">
+				<form id="search-form">
+					<input
+						id="search"
+						type="search"
+						placeholder="Search Tours by Name"
+						class="w-full rounded-lg border border-gray-300 p-2"
+						name="search"
+					/>
+				</form>
+			</div>
+
+			<AllToursList server:defer>
+				<div slot="fallback" class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+					{Array.from({ length: 12 }).map((_, index) => <TourCardSkeleton />)}
+				</div>
+			</AllToursList>
+		</div>
+	</section>
+</MainLayout>
+
+<script>
+	const form = document.getElementById('search-form') as HTMLFormElement;
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const formData = new FormData(form);
+		const searchTerm = formData.get('search')?.toString();
+		const url = new URL('/tours', window.location.origin);
+		url.searchParams.set('q', searchTerm || '');
+		window.location.assign(url.toString());
+	});
+
+	// Get the search query from the URL if it exists and set it in the search input
+	const url = new URL(window.location.href);
+	const searchQuery = url.searchParams.get('q');
+	const searchInput = document.getElementById('search') as HTMLInputElement;
+	if (searchQuery) {
+		searchInput.value = searchQuery;
+	}
+
+	// Add event listener to page load, if there is no search query, remove it from the URL
+	window.addEventListener('load', () => {
+		if (!searchQuery) {
+			const url = new URL(window.location.href);
+			url.searchParams.delete('q');
+			window.history.replaceState({}, '', url.toString());
+		}
+	});
+</script>
