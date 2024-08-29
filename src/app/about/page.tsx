@@ -29,18 +29,34 @@ export default function AboutPage() {
 
 	return (
 		<>
-			<section className="w-full bg-black py-12 text-white md:py-24 lg:py-32">
-				<div className="container px-4 md:px-6">
+			<section className="relative w-full py-12 text-white md:py-24 lg:py-32">
+				{/* Background Image */}
+				<div className="absolute inset-0 z-0">
+					<Image
+						src="/about-1.webp"
+						alt="Background Image"
+						fill
+						quality={80}
+						priority
+						className="pointer-events-none object-cover"
+					/>
+				</div>
+
+				{/* Dark overlay */}
+				<div className="absolute inset-0 z-10 bg-black opacity-70"></div>
+
+				<div className="container relative z-20 px-4 md:px-6">
 					<h1 className="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
 						About Outdoors Explorers
 					</h1>
-					<p className="max-w-[700px] text-gray-400 md:text-xl">
+					<p className="max-w-[700px] text-gray-300 md:text-xl">
 						Pioneering eco-friendly exploration since 2005, we&apos;re committed to
 						showing you the world&apos;s wonders while preserving them for future
 						generations.
 					</p>
 				</div>
 			</section>
+
 			<section className="w-full py-12 md:py-24 lg:py-32">
 				<div className="container px-4 md:px-6">
 					<h2 className="mb-8 text-3xl font-bold tracking-tighter sm:text-4xl">
@@ -77,7 +93,8 @@ export default function AboutPage() {
 					</div>
 				</div>
 			</section>
-			<section className="w-full bg-gradient-to-tr from-emerald-600 via-emerald-400 to-lime-200 py-12 text-white md:py-24 lg:py-32">
+
+			<section className="w-full bg-gray-200 py-12 md:py-24 lg:py-32">
 				<div className="container px-4 md:px-6">
 					<h2 className="mb-8 text-center text-3xl font-bold tracking-tighter sm:text-4xl">
 						Our Mission
@@ -116,6 +133,7 @@ export default function AboutPage() {
 					</div>
 				</div>
 			</section>
+
 			<section className="w-full py-12 md:py-24 lg:py-32">
 				<div className="container px-4 md:px-6">
 					<h2 className="mb-8 text-center text-3xl font-bold tracking-tighter sm:text-4xl">
@@ -145,16 +163,32 @@ export default function AboutPage() {
 					</div>
 				</div>
 			</section>
-			<section className="w-full bg-black py-12 text-white md:py-24 lg:py-32">
-				<div className="container px-4 text-center md:px-6">
+
+			<section className="relative w-full py-12 text-white md:py-24 lg:py-32">
+				{/* Background Image */}
+				<div className="absolute inset-0 z-0">
+					<Image
+						src="/about-2.webp" // Replace with your actual image path
+						alt="Background Image"
+						fill
+						quality={80}
+						priority
+						className="pointer-events-none object-cover"
+					/>
+				</div>
+
+				{/* Dark overlay */}
+				<div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
+
+				<div className="container relative z-20 px-4 md:px-6">
 					<h2 className="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl">
 						Our Commitment to the Environment
 					</h2>
-					<p className="mx-auto mb-8 max-w-[700px] text-gray-400 md:text-xl">
+					<p className="mb-8 max-w-[700px] text-gray-300 md:text-xl">
 						At Outdoors Explorers, sustainability isn&apos;t just a buzzword—it&apos;s
 						at the core of everything we do.
 					</p>
-					<ul className="mx-auto max-w-[700px] space-y-4 text-left">
+					<ul className="max-w-[700px] space-y-4 text-left">
 						<li className="flex items-start">
 							<LeafIcon className="mr-2 size-6 flex-shrink-0 text-emerald-500" />
 							<span>We offset 150% of the carbon emissions from all our tours.</span>
