@@ -1,6 +1,8 @@
 ---
 import { LogInIcon, MountainIcon } from 'lucide-react';
 
+import { Link } from '@/components/ui/link';
+
 const links = [
 	// { name: 'Home', href: '/' },
 	{ name: 'Tours', href: '/tours' },
@@ -39,9 +41,9 @@ const { pathname } = Astro.url;
 	</div>
 
 	<div>
-		<a href="/login" class="flex items-center rounded-lg bg-primary px-3 py-2 text-white">
+		<Link href="/login">
 			<LogInIcon className="mr-2 size-4" />
 			<span>Login</span>
-		</a>
+		</Link>
 	</div>
 </header>

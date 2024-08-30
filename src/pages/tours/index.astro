@@ -1,7 +1,7 @@
 ---
 import MainLayout from '@/layouts/main-layout.astro';
-import AllToursList from '@/components/tours/all-tours-list.astro';
-import { TourCardSkeleton } from '@/components/home/tour-card-skeleton';
+import ToursList from '@/components/tours/tours-list.astro';
+import TourCardSkeleton from '@/components/tours/tour-card-skeleton.astro';
 ---
 
 <MainLayout>
@@ -21,11 +21,11 @@ import { TourCardSkeleton } from '@/components/home/tour-card-skeleton';
 				</form>
 			</div>
 
-			<AllToursList server:defer>
+			<ToursList server:defer>
 				<div slot="fallback" class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-					{Array.from({ length: 12 }).map((_, index) => <TourCardSkeleton />)}
+					{Array.from({ length: 12 }).map(() => <TourCardSkeleton />)}
 				</div>
-			</AllToursList>
+			</ToursList>
 		</div>
 	</section>
 </MainLayout>

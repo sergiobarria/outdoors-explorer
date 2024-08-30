@@ -2,11 +2,12 @@
 import { Image } from 'astro:assets';
 
 import MainLayout from '@/layouts/main-layout.astro';
-import FeaturedTours from '@/components/home/featured-tours.astro';
-import { TourCardSkeleton } from '@/components/home/tour-card-skeleton';
+import FeaturedTours from '@/components/tours/featured-tours.astro';
+import TourCardSkeleton from '@/components/tours/tour-card-skeleton.astro';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { heroImg, communityImg } from '@/assets';
+import { Link } from '@/components/ui/link';
 ---
 
 <MainLayout>
@@ -39,18 +40,8 @@ import { heroImg, communityImg } from '@/assets';
 				</div>
 
 				<div class="flex space-x-4">
-					<a
-						href="/tours"
-						class="flex items-center rounded-lg bg-primary px-3 py-2 text-white hover:bg-primary/90"
-					>
-						Explore Tours
-					</a>
-					<a
-						href="/about"
-						class="flex items-center rounded-lg bg-primary bg-white px-3 py-2 hover:bg-gray-200"
-					>
-						Learn More
-					</a>
+					<Link href="/tours"> Explore Tours </Link>
+					<Link href="/about" variant="outline"> Learn More </Link>
 				</div>
 			</div>
 		</div>
@@ -69,11 +60,7 @@ import { heroImg, communityImg } from '@/assets';
 
 			<div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 				<FeaturedTours server:defer>
-					{
-						Array.from({ length: 3 }).map((_, index) => (
-							<TourCardSkeleton slot="fallback" />
-						))
-					}
+					{Array.from({ length: 3 }).map(() => <TourCardSkeleton slot="fallback" />)}
 				</FeaturedTours>
 			</div>
 

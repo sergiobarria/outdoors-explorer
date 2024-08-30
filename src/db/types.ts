@@ -7,3 +7,7 @@ export type TourDetail = Omit<Tour, 'created' | 'modified' | 'description'> & {
 	images: string[];
 	startDates: string[];
 };
+export type TourDetailWithDescription = Omit<Tour, 'created' | 'modified'> & {
+	images: string[];
+	startDates: string[];
+};
