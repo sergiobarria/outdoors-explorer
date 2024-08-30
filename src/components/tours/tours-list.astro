@@ -6,7 +6,7 @@ import TourCard from '@/components/tours/tour-card.astro';
 import { db } from '@/db';
 import { toursTable } from '@/db/schema';
 
-async function getFeaturedTours(searchQuery: string | null, limit = 12) {
+async function getFeaturedTours(searchQuery: string | null, limit = 100) {
 	const whereCondition = searchQuery
 		? like(toursTable.name, `%${searchQuery.toLowerCase()}%`)
 		: undefined;
@@ -23,7 +23,8 @@ async function getFeaturedTours(searchQuery: string | null, limit = 12) {
 			startDates: {
 				columns: { date: true }
 			}
-		}
+		},
+		limit
 	});
 
 	return tours.map((tour) => ({
