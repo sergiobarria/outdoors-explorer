@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { communityImg } from '@/assets';
+---
+
+<section class="relative w-full py-12 text-white md:py-24 lg:py-32">
+	{/* Background Image */}
+	<div class="absolute inset-0 z-0">
+		<Image
+			src={communityImg}
+			alt="Background Image"
+			quality={80}
+			class="pointer-events-none h-full object-cover"
+		/>
+	</div>
+
+	{/* Dark overlay */}
+	<div class="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/70 to-transparent">
+	</div>
+
+	<div class="container relative z-20 px-4 md:px-6">
+		<div class="flex flex-col items-start space-y-4 text-left">
+			<div class="space-y-2">
+				<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+					Join Our Green Community
+				</h2>
+				<p class="max-w-[600px] text-green-100 md:text-xl">
+					Sign up for our newsletter to receive exclusive eco-friendly offers, travel
+					tips, and inspiring stories.
+				</p>
+			</div>
+			<div class="w-full max-w-sm space-y-2">
+				<form class="flex space-x-2">
+					<Input
+						className="flex-1 bg-white text-black placeholder-gray-500"
+						placeholder="Enter your email"
+						type="email"
+					/>
+					<Button type="submit" className="bg-black text-white hover:bg-gray-800">
+						Subscribe
+					</Button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

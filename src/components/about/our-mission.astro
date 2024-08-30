@@ -1,0 +1,51 @@
+---
+import { LeafIcon, MountainIcon, UsersIcon } from 'lucide-react';
+
+const missions = [
+	{
+		icon: LeafIcon,
+		title: 'Preserve Nature',
+		description:
+			'We strive to minimize our environmental impact and actively contribute to conservation efforts in the areas we visit.'
+	},
+	{
+		icon: UsersIcon,
+		title: 'Empower Communities',
+		description:
+			'We work closely with local communities, ensuring that tourism benefits those who call our destinations home.'
+	},
+	{
+		icon: MountainIcon,
+		title: 'Inspire Adventure',
+		description:
+			'We create unforgettable experiences that connect people with nature and inspire a lifelong love for our planet.'
+	}
+];
+---
+
+<section class="w-full overflow-hidden bg-gray-200 py-16 md:py-24 lg:py-32">
+	<div class="container relative px-4 md:px-6">
+		<h2 class="mb-12 text-center text-4xl font-bold tracking-tighter sm:text-5xl">
+			Our Mission
+		</h2>
+		<div class="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+			{
+				missions.map((mission) => (
+					<div class="transform rounded-lg bg-emerald-500 p-6 transition-all duration-300 ease-in-out">
+						<div class="flex flex-col items-center text-center">
+							<div class="mb-4 rounded-full bg-white p-3">
+								<mission.icon className="h-8 w-8 text-emerald-500" />
+							</div>
+							<h3 class="mb-2 text-xl font-bold">{mission.title}</h3>
+							<p class="text-white/80">{mission.description}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+		<div
+			class="absolute left-1/2 top-1/2 -z-10 h-[200%] w-[200%] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-emerald-500/10 blur-3xl"
+		>
+		</div>
+	</div>
+</section>

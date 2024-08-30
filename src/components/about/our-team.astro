@@ -1,0 +1,58 @@
+---
+import { AppAvatar } from '../site/app-avatar';
+
+const teamMembers = [
+	{
+		name: 'Emma Green',
+		role: 'Founder & CEO',
+		image: '/placeholder-image.jpg',
+		bio: 'With over 20 years of experience in eco-tourism, Emma founded Green Adventures to share her passion for sustainable travel.'
+	},
+	{
+		name: 'Michael Rivers',
+		role: 'Head of Operations',
+		image: '/placeholder-image.jpg',
+		bio: 'Michael ensures that every Green Adventure tour runs smoothly while minimizing environmental impact.'
+	},
+	{
+		name: 'Sophia Woods',
+		role: 'Lead Naturalist',
+		image: '/placeholder-image.jpg',
+		bio: "Sophia's extensive knowledge of ecosystems worldwide enriches every tour with fascinating insights."
+	}
+];
+---
+
+<section class="w-full overflow-hidden py-16 md:py-24 lg:py-32">
+	<div class="container relative px-4 md:px-6">
+		<h2 class="mb-12 text-center text-4xl font-bold tracking-tighter sm:text-5xl">
+			Meet Our Team
+		</h2>
+		<div class="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+			{
+				teamMembers.map((member, index) => (
+					<div class="group relative">
+						<div class="absolute inset-0 rotate-3 transform rounded-lg bg-emerald-500 transition-transform duration-300 ease-in-out group-hover:rotate-0" />
+						<div class="relative -rotate-3 transform overflow-hidden rounded-lg border-2 border-emerald-500 bg-black p-6 text-white transition-transform duration-300 ease-in-out group-hover:rotate-0">
+							<div class="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-emerald-700" />
+							<div class="relative mb-6">
+								<div class="mx-auto h-32 w-32 transform overflow-hidden rounded-full border-4 border-emerald-500 transition-transform duration-300 ease-in-out group-hover:scale-110">
+									<AppAvatar image={member.image} fallback={member.name} />
+								</div>
+								<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 transform rounded-full bg-emerald-500 px-4 py-1 text-sm font-semibold text-black">
+									{member.role}
+								</div>
+							</div>
+							<h3 class="mb-2 text-center text-xl font-bold">{member.name}</h3>
+							<p class="text-center text-white/80">{member.bio}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+		<div
+			class="absolute left-1/2 top-1/2 -z-10 h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-emerald-500/10 blur-3xl"
+		>
+		</div>
+	</div>
+</section>

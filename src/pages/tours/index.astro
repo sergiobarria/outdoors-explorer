@@ -1,10 +1,10 @@
 ---
-import MainLayout from '@/layouts/main-layout.astro';
+import Layout from '@/layouts/layout.astro';
 import ToursList from '@/components/tours/tours-list.astro';
 import TourCardSkeleton from '@/components/tours/tour-card-skeleton.astro';
 ---
 
-<MainLayout>
+<Layout>
 	<section class="py-12 md:py-16">
 		<div class="container px-4 md:px-6">
 			<h1 class="mb-8 text-3xl font-bold">Check All Tours</h1>
@@ -28,7 +28,7 @@ import TourCardSkeleton from '@/components/tours/tour-card-skeleton.astro';
 			</ToursList>
 		</div>
 	</section>
-</MainLayout>
+</Layout>
 
 <script>
 	const form = document.getElementById('search-form') as HTMLFormElement;

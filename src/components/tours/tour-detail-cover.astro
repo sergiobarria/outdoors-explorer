@@ -1,0 +1,33 @@
+---
+import type { TourDetailWithDescription } from '@/db/types';
+import { StarIcon } from 'lucide-react';
+
+interface Props {
+	tour: TourDetailWithDescription;
+}
+
+const { tour } = Astro.props as Props;
+---
+
+<section class="overflow-hidden rounded-lg bg-white shadow-md">
+	<div class="relative h-96">
+		<img
+			src={tour.images?.at(0)}
+			alt={tour.name}
+			class="absolute inset-0 h-full w-full object-cover"
+		/>
+
+		<div
+			class="via-black-70 absolute inset-0 flex items-end bg-gradient-to-t from-black via-black/10 to-transparent"
+		>
+			<div class="p-6 text-white">
+				<h2 class="font-bold-mb-2 text-2xl">{tour.name}</h2>
+				<div class="flex items-center">
+					<StarIcon className="mr-1 size-5 text-amber-500" />
+					<span class="mr-2 font-semibold">{tour.ratingsAverage}</span>
+					<small>({tour.ratingsQty} reviews)</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

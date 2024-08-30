@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+
+import { placeholderImg } from '@/assets';
+---
+
+<section class="w-full py-12 md:py-24">
+	<div class="container px-4 md:px-6">
+		<h2 class="mb-8 text-3xl font-bold tracking-tighter sm:text-4xl">Our Story</h2>
+		<div class="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+			<div>
+				<p class="mb-4 text-gray-600">
+					Outdoors Explorers was born from a simple idea: that exploring the world
+					shouldn&apos;t come at the cost of damaging it. Founded by Emma Green in 2005,
+					our company has grown from a small local tour operator to a global leader in
+					sustainable tourism.
+				</p>
+				<p class="mb-4 text-gray-600">
+					We&apos;ve taken thousands of adventurers to the far corners of the Earth,
+					always with a focus on minimizing our environmental footprint and maximizing
+					positive impact on local communities.
+				</p>
+				<p class="text-gray-600">
+					Today, we continue to innovate in eco-friendly travel practices, setting new
+					standards for responsible tourism and inspiring a new generation of conscious
+					travelers.
+				</p>
+			</div>
+			<div class="relative h-[300px] overflow-hidden rounded-lg">
+				<Image
+					src={placeholderImg}
+					alt="Outdoors Explorers team in nature"
+					width={600}
+					height={400}
+					class="absolute inset-0 h-full w-full object-cover"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

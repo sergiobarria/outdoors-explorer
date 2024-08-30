@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+
+import { Link } from '@/components/ui/link';
+import { heroImg } from '@/assets';
+---
+
+<section class="relative h-[70vh] w-full py-12 md:py-24">
+	{/* Background Image */}
+	<div class="absolute inset-0 z-0">
+		<Image
+			src={heroImg}
+			alt="Background Image"
+			quality={80}
+			class="pointer-events-none h-full object-cover"
+		/>
+	</div>
+
+	{/* Dark overlay */}
+	<div class="absolute inset-0 z-10 bg-black opacity-50"></div>
+
+	<div class="relative z-20 flex h-full items-center justify-center px-4 md:px-6">
+		<div class="flex flex-col items-center space-y-4 text-center">
+			<div class="space-y-2">
+				<h1 class="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
+					Discover Earth&apos;s Hidden Wonders
+				</h1>
+				<p class="mx-auto max-w-[700px] text-pretty text-gray-300 md:text-xl">
+					Embark on eco-friendly journeys to the most breathtaking destinations on our
+					planet.
+				</p>
+			</div>
+
+			<div class="flex space-x-4">
+				<Link href="/tours"> Explore Tours </Link>
+				<Link href="/about" variant="outline"> Learn More </Link>
+			</div>
+		</div>
+	</div>
+</section>
