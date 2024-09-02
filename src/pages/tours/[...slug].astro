@@ -3,7 +3,7 @@ import Layout from '@/layouts/layout.astro';
 import TourDetailCover from '@/components/tours/tour-detail-cover.astro';
 import TourOverview from '@/components/tours/tour-overview.astro';
 import TourItenerary from '@/components/tours/tour-itenerary.astro';
-import TourDetails from '@/components/tours/tour-details.astro';
+import QuickFacts from '@/components/tours/quick-facts.astro';
 import TourReviews from '@/components/tours/tour-reviews.astro';
 import { getImageUrl } from '@/lib/s3';
 import { db } from '@/db';
@@ -49,7 +49,7 @@ if (!tour) return Astro.redirect('/404');
 		</div>
 
 		<div class="lg:col-span-1">
-			<TourDetails tour={tour} />
+			<QuickFacts tour={tour} />
 		</div>
 	</div>
 </Layout>

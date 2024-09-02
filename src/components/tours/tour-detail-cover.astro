@@ -15,6 +15,7 @@ const { tour } = Astro.props as Props;
 			src={tour.images?.at(0)}
 			alt={tour.name}
 			class="absolute inset-0 h-full w-full object-cover"
+			transition:name="tour-image"
 		/>
 
 		<div
