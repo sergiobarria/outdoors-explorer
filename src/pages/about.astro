@@ -1,16 +1,33 @@
 ---
+import { Image } from 'astro:assets';
+
 import Layout from '@/layouts/layout.astro';
-import HeroSection from '@/components/about/hero-section.astro';
 import OurStory from '@/components/about/our-story.astro';
-import OurMission from '@/components/about/our-mission.astro';
 import OurTeam from '@/components/about/our-team.astro';
 import OurCommintment from '@/components/about/our-commintment.astro';
+import PageHeader from '@/components/site/page-header.astro';
+import OurValues from '@/components/about/our-values.astro';
+import { aboutImg1 } from '@/assets';
 ---
 
 <Layout>
-	<HeroSection />
+	<PageHeader>
+		<Image
+			slot="background-image"
+			src={aboutImg1}
+			alt="Background Image"
+			quality={80}
+			class="pointer-events-none h-full object-cover"
+		/>
+		<Fragment slot="title">About Outdoors Explorers</Fragment>
+		<Fragment slot="description">
+			Pioneering eco-friendly exploration since 2005, we&apos;re committed to showing you the
+			world&apos;s wonders while preserving them for future generations.
+		</Fragment>
+	</PageHeader>
+
 	<OurStory />
-	<OurMission />
+	<OurValues />
 	<OurTeam />
 	<OurCommintment />
 </Layout>

@@ -1,58 +1,81 @@
 ---
-import { AppAvatar } from '../site/app-avatar';
+import { Image } from 'astro:assets';
+
+import { MaxWidthContainer } from '@/components/site/max-width-container';
+import { MountainIcon } from 'lucide-react';
 
 const teamMembers = [
 	{
-		name: 'Emma Green',
-		role: 'Founder & CEO',
-		image: '/placeholder-image.jpg',
-		bio: 'With over 20 years of experience in eco-tourism, Emma founded Green Adventures to share her passion for sustainable travel.'
+		name: 'Alex Thompson',
+		role: 'Co-Founder & CEO',
+		image: '/placeholder.svg?height=300&width=300',
+		bio: 'With over 20 years of mountaineering experience, Alex leads our company with passion and expertise.'
 	},
 	{
-		name: 'Michael Rivers',
-		role: 'Head of Operations',
-		image: '/placeholder-image.jpg',
-		bio: 'Michael ensures that every Green Adventure tour runs smoothly while minimizing environmental impact.'
+		name: 'Sarah Chen',
+		role: 'Co-Founder & Head of Operations',
+		image: '/placeholder.svg?height=300&width=300',
+		bio: "Sarah's background in environmental science shapes our commitment to sustainable travel practices."
 	},
 	{
-		name: 'Sophia Woods',
-		role: 'Lead Naturalist',
-		image: '/placeholder-image.jpg',
-		bio: "Sophia's extensive knowledge of ecosystems worldwide enriches every tour with fascinating insights."
+		name: 'Mike Rodriguez',
+		role: 'Lead Guide & Safety Officer',
+		image: '/placeholder.svg?height=300&width=300',
+		bio: 'A certified wilderness first responder, Mike ensures the safety of all our expeditions.'
+	},
+	{
+		name: 'Emma Larsson',
+		role: 'Cultural Liaison & Guide',
+		image: '/placeholder.svg?height=300&width=300',
+		bio: 'Fluent in five languages, Emma specializes in creating immersive cultural experiences.'
+	},
+	{
+		name: 'David Okafor',
+		role: 'Environmental Specialist',
+		image: '/placeholder.svg?height=300&width=300',
+		bio: 'David works to minimize our ecological footprint and educate travelers on conservation.'
+	},
+	{
+		name: 'Yuki Tanaka',
+		role: 'Adventure Photographer',
+		image: '/placeholder.svg?height=300&width=300',
+		bio: 'Yuki captures the breathtaking moments of our journeys, inspiring future adventurers.'
 	}
 ];
 ---
 
 <section class="w-full overflow-hidden py-16 md:py-24 lg:py-32">
-	<div class="container relative px-4 md:px-6">
-		<h2 class="mb-12 text-center text-4xl font-bold tracking-tighter sm:text-5xl">
+	<MaxWidthContainer>
+		<h2 class="text-gradient mb-12 text-center text-4xl font-bold tracking-tighter sm:text-5xl">
 			Meet Our Team
 		</h2>
-		<div class="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{
 				teamMembers.map((member) => (
-					<div class="group relative">
-						<div class="absolute inset-0 rotate-3 transform rounded-lg bg-emerald-500 transition-transform duration-300 ease-in-out group-hover:rotate-0" />
-						<div class="relative -rotate-3 transform overflow-hidden rounded-lg border-2 border-emerald-500 bg-black p-6 text-white transition-transform duration-300 ease-in-out group-hover:rotate-0">
-							<div class="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-emerald-700" />
-							<div class="relative mb-6">
-								<div class="mx-auto h-32 w-32 transform overflow-hidden rounded-full border-4 border-emerald-500 transition-transform duration-300 ease-in-out group-hover:scale-110">
-									<AppAvatar image={member.image} fallback={member.name} />
-								</div>
-								<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 transform rounded-full bg-emerald-500 px-4 py-1 text-sm font-semibold text-black">
-									{member.role}
-								</div>
-							</div>
-							<h3 class="mb-2 text-center text-xl font-bold">{member.name}</h3>
-							<p class="text-center text-white/80">{member.bio}</p>
+					<div class="group relative overflow-hidden rounded-2xl shadow-lg shadow-gray-600 transition-all duration-300 hover:shadow-2xl">
+						<Image
+							src="/placeholder.jpg"
+							alt={member.name}
+							width={600}
+							height={400}
+							class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
+
+						<div class="absolute inset-x-0 bottom-0 p-6 text-white">
+							<h3 class="mb-1 text-2xl font-bold">{member.name}</h3>
+							<p class="mb-2 text-sm">{member.role}</p>
+							<p class="text-sm opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+								{member.bio}
+							</p>
+						</div>
+						<div class="absolute right-4 top-4">
+							<MountainIcon className="size-8 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
 						</div>
 					</div>
 				))
 			}
 		</div>
-		<div
-			class="absolute left-1/2 top-1/2 -z-10 h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-emerald-500/10 blur-3xl"
-		>
-		</div>
-	</div>
+	</MaxWidthContainer>
 </section>

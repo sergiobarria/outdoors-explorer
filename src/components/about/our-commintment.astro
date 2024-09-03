@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { LeafIcon } from 'lucide-react';
 
 import { aboutImg2 } from '@/assets';
+import { MaxWidthContainer } from '@/components/site/max-width-container';
 ---
 
 <section class="relative w-full py-12 text-white md:py-24 lg:py-32">
@@ -20,7 +21,7 @@ import { aboutImg2 } from '@/assets';
 	<div class="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/70 to-transparent">
 	</div>
 
-	<div class="container relative z-20 px-4 md:px-6">
+	<MaxWidthContainer className="relative z-40">
 		<h2 class="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl">
 			Our Commitment to the Environment
 		</h2>
@@ -30,24 +31,24 @@ import { aboutImg2 } from '@/assets';
 		</p>
 		<ul class="mb-6 max-w-[700px] space-y-4 text-left">
 			<li class="flex items-start">
-				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-emerald-500" />
+				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-primary" />
 				<span>We offset 150% of the carbon emissions from all our tours.</span>
 			</li>
 			<li class="flex items-start">
-				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-emerald-500" />
+				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-primary" />
 				<span>Our tours use only renewable energy sources where possible.</span>
 			</li>
 			<li class="flex items-start">
-				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-emerald-500" />
+				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-primary" />
 				<span> We&apos;ve eliminated single-use plastics from all our operations. </span>
 			</li>
 			<li class="flex items-start">
-				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-emerald-500" />
+				<LeafIcon className="mr-2 size-6 flex-shrink-0 text-primary" />
 				<span> 5% of our profits go directly to environmental conservation projects. </span>
 			</li>
 		</ul>
-		<a href="/about" class="rounded-lg bg-emerald-500 p-3 text-white hover:bg-emerald-600">
+		<a href="/about" class="rounded-lg bg-primary/90 p-3 text-white hover:bg-primary/80">
 			Learn More About Our Impact
 		</a>
-	</div>
+	</MaxWidthContainer>
 </section>
