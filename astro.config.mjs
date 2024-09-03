@@ -7,7 +7,7 @@ import react from '@astrojs/react';
 export default defineConfig({
 	integrations: [tailwind(), react()],
 	output: 'hybrid',
-	prefetch: true,
+	// prefetch: true,
 	experimental: {
 		serverIslands: true
 	}

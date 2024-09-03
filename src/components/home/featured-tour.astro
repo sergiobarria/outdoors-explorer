@@ -1,0 +1,73 @@
+---
+import { db } from '@/db';
+import { getImageUrl } from '@/lib/s3';
+
+const [result] = await db.query.toursTable.findMany({
+	columns: { name: true, summary: true, slug: true },
+	where: (tours, { eq }) => eq(tours.isFeatured, true),
+	with: {
+		images: {
+			columns: { imageKey: true },
+			limit: 1
+		}
+	},
+	orderBy: (records, { desc }) => [desc(records.ratingsAverage)],
+	limit: 1
+});
+
+const featuredTour = {
+	...result,
+	image: getImageUrl(result.images?.at(0)?.imageKey || '')
+};
+---
+
+<div class="relative flex-1 overflow-hidden">
+	<img
+		src={featuredTour.image}
+		alt="featured tour"
+		class="absolute inset-0 h-full w-full object-cover object-center"
+	/>
+
+	<div class="animate-fade-in absolute inset-0 flex items-end bg-black/50 p-8 md:p-16">
+		<div class="text-white">
+			<h2 class="mb-2 text-2xl font-bold">Featured Tour: {featuredTour.name}</h2>
+			<p class="mb-4">{featuredTour.summary}</p>
+			<a
+				href={`/tours/${featuredTour.slug}`}
+				class="inline-block transform rounded-full bg-white px-4 py-2 text-lg text-primary shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-green-50"
+			>
+				Learn More
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes slide-up {
+		from {
+			transform: translateY(10px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	.animate-fade-in {
+		animation: fade-in 0.5s ease-out forwards;
+	}
+
+	.animate-slide-up {
+		animation: slide-up 0.7s ease-out forwards;
+	}
+</style>

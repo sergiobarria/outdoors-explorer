@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { MaxWidthContainer } from '@/components/site/max-width-container';
 import { communityImg } from '@/assets';
 ---
 
@@ -18,10 +19,12 @@ import { communityImg } from '@/assets';
 	</div>
 
 	{/* Dark overlay */}
-	<div class="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/70 to-transparent">
+	<div
+		class="absolute inset-0 z-10 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent"
+	>
 	</div>
 
-	<div class="container relative z-20 px-4 md:px-6">
+	<MaxWidthContainer className="relative z-40">
 		<div class="flex flex-col items-start space-y-4 text-left">
 			<div class="space-y-2">
 				<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -39,11 +42,11 @@ import { communityImg } from '@/assets';
 						placeholder="Enter your email"
 						type="email"
 					/>
-					<Button type="submit" className="bg-black text-white hover:bg-gray-800">
+					<Button type="submit" className="bg-primary text-white hover:bg-secondary">
 						Subscribe
 					</Button>
 				</form>
 			</div>
 		</div>
-	</div>
+	</MaxWidthContainer>
 </section>

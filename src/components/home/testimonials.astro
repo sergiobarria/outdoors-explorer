@@ -1,0 +1,60 @@
+---
+import { StarIcon } from 'lucide-react';
+
+import { MaxWidthContainer } from '@/components/site/max-width-container';
+
+const testimonials = [
+	{
+		name: 'Alex Johnson',
+		quote: 'The most incredible experience of my life. The guides were knowledgeable and the views were breathtaking.',
+		avatar: '/placeholder.jpg'
+	},
+	{
+		name: 'Sarah Lee',
+		quote: 'I never thought I could push my limits like this. WildVentures made it possible and enjoyable!',
+		avatar: '/placeholder.jpg'
+	},
+	{
+		name: 'Mike Chen',
+		quote: "From start to finish, every detail was perfect. I can't wait for my next tour with WildVentures.",
+		avatar: '/placeholder.jpg'
+	}
+];
+---
+
+<section
+	class="relative w-full -skew-y-1 overflow-hidden bg-gradient-to-br from-primary via-green-700 to-primary py-16 text-white md:py-24"
+>
+	<div class="absolute inset-0 opacity-10"></div>
+	<MaxWidthContainer>
+		<h2 class="mb-16 text-center text-3xl font-bold md:text-5xl">What Our Adventurers Say</h2>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+			{
+				testimonials.map((testimonial) => (
+					<div class="transform rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+						<div class="mb-4 flex items-center">
+							<img
+								src={testimonial.avatar}
+								alt={testimonial.name}
+								class="mr-4 h-12 w-12 rounded-full"
+							/>
+							<div>
+								<h3 class="font-bold">{testimonial.name}</h3>
+								<div class="flex">
+									{[...Array(5)].map((_, i) => (
+										<StarIcon className="w-4 h-4 fill-current text-yellow-400" />
+									))}
+								</div>
+							</div>
+						</div>
+						<p class="text-lg italic">"{testimonial.quote}"</p>
+					</div>
+				))
+			}
+		</div>
+	</MaxWidthContainer>
+	<div
+		class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-green-600 to-transparent"
+	>
+	</div>
+</section>

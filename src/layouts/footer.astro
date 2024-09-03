@@ -1,0 +1,84 @@
+---
+import { HeartIcon } from 'lucide-react';
+
+import { MaxWidthContainer } from '@/components/site/max-width-container';
+import { InstagramIcon } from '@/components/icons/instagram-icon';
+
+const links = [
+	{ name: 'Terms of Service', href: '/terms' },
+	{ name: 'Privacy Policy', href: '/privacy' }
+];
+
+const socials = ['facebook', 'twitter', 'instagram', 'youtube'];
+
+const { pathname } = Astro.url;
+---
+
+<footer class="bg-gray-900 py-12 text-white">
+	<MaxWidthContainer>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+			<div>
+				<h3 class="flex items-center gap-2 text-2xl font-bold">Outdoors Explorers</h3>
+				<p class="mt-4 text-sm text-gray-300">
+					We are a community of outdoor enthusiasts who love to explore the world.
+				</p>
+			</div>
+
+			<div>
+				<h3 class="mb-4 text-lg font-bold">Quick Links</h3>
+
+				<ul class="space-y-2">
+					{
+						links.map(({ name, href }) => (
+							<li>
+								<a
+									href={href}
+									class:list={[
+										'text-sm text-gray-400 transition-colors hover:text-white',
+										pathname === href
+											? 'font-semibold text-primary'
+											: 'text-gray-300'
+									]}
+								>
+									{name}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div>
+				<h3 class="mb-4 text-lg font-bold">Contact Us</h3>
+				<p class="text-sm text-gray-400">
+					1234 Adventure Lane
+					<br />Adventure City, 12345
+					<br />
+					<br />1-800-123-4567
+				</p>
+			</div>
+
+			<div>
+				<h3 class="mb-4 text-lg font-bold">Follow Us</h3>
+
+				<div class="flex space-x-4">
+					{
+						socials.map((social) => (
+							<a href="#">
+								<span class="sr-only">{social}</span>
+								<InstagramIcon className="size-6" />
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-8 border-t border-gray-800 pt-8 text-center">
+			<p class="text-sm text-gray-400">
+				&copy; {new Date().getFullYear()} Outdoors Explorers. Made with
+				<HeartIcon className="inline-block size-4 fill-rose-500 text-rose-500" />.
+			</p>
+		</div>
+	</MaxWidthContainer>
+</footer>

@@ -1,40 +1,30 @@
 ---
-import { Image } from 'astro:assets';
-
-import { Link } from '@/components/ui/link';
-import { heroImg } from '@/assets';
+import FeaturedTour from './featured-tour.astro';
 ---
 
-<section class="relative h-[70vh] w-full py-12 md:py-24">
-	{/* Background Image */}
-	<div class="absolute inset-0 z-0">
-		<Image
-			src={heroImg}
-			alt="Background Image"
-			quality={80}
-			class="pointer-events-none h-full object-cover"
-		/>
-	</div>
+<section id="hero" class="flex min-h-[calc(100vh-64px)] w-full flex-col md:flex-row">
+	<div
+		class="relative flex flex-1 items-center bg-gradient-to-br from-green-600 to-lime-600 p-8 md:p-16"
+	>
+		<div class="mx-auto max-w-screen-xl px-4 lg:px-6">
+			<h1 class="animate-fade-in-up mb-6 text-4xl font-bold text-white md:text-6xl">
+				Discover the Untamed Beauty of Nature
+			</h1>
+			<p class="animate-fade-in-up animation-delay-200 mb-8 text-xl text-white/80">
+				Embark on extraordinary journeys that challenge your limits and ignite your sense of
+				wonder.
+			</p>
 
-	{/* Dark overlay */}
-	<div class="absolute inset-0 z-10 bg-black opacity-50"></div>
-
-	<div class="relative z-20 flex h-full items-center justify-center px-4 md:px-6">
-		<div class="flex flex-col items-center space-y-4 text-center">
-			<div class="space-y-2">
-				<h1 class="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
-					Discover Earth&apos;s Hidden Wonders
-				</h1>
-				<p class="mx-auto max-w-[700px] text-pretty text-gray-300 md:text-xl">
-					Embark on eco-friendly journeys to the most breathtaking destinations on our
-					planet.
-				</p>
-			</div>
-
-			<div class="flex space-x-4">
-				<Link href="/tours"> Explore Tours </Link>
-				<Link href="/about" variant="outline"> Learn More </Link>
-			</div>
+			<a
+				href="/tours"
+				class="animate-fade-in-up animation-delay-400 inline-block transform rounded-full bg-white px-6 py-4 text-lg text-primary shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-green-50"
+			>
+				Start Your Adventure
+			</a>
 		</div>
 	</div>
+
+	<FeaturedTour server:defer>
+		<div slot="fallback" class="flex-1 animate-pulse bg-gray-700"></div>
+	</FeaturedTour>
 </section>

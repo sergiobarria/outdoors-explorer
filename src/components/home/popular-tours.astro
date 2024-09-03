@@ -1,29 +1,28 @@
 ---
-import FeaturedTours from '../tours/featured-tours.astro';
-import TourCardSkeleton from '../tours/tour-card-skeleton.astro';
+import { MaxWidthContainer } from '@/components/site/max-width-container';
+import { cn } from '@/lib/utils';
+import PopularToursGrid from './popular-tours-grid.astro';
 ---
 
-<section id="featured-tours" class="py-16">
-	<div class="container px-4 md:px-6">
-		<div class="flex flex-col items-center space-y-8">
-			<h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-				Popular Tours
-			</h2>
-			<p class="mx-auto max-w-[700px] text-pretty text-gray-400 md:text-xl">
-				Discover the most popular tours that our customers love.
-			</p>
-		</div>
+<section class="w-full overflow-hidden py-16 md:py-24">
+	<MaxWidthContainer>
+		<h2 class="text-gradient mb-16 text-center text-3xl font-bold md:text-5xl">
+			Popular Tours
+		</h2>
 
-		<div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-			<FeaturedTours server:defer>
-				{Array.from({ length: 3 }).map(() => <TourCardSkeleton slot="fallback" />)}
-			</FeaturedTours>
-		</div>
-
-		<div class="mt-8 flex justify-center">
-			<a href="/tours" class="font-semibold text-primary underline-offset-2 hover:underline">
-				Explore All Tours
-			</a>
-		</div>
-	</div>
+		<PopularToursGrid server:defer>
+			<div slot="fallback" class="grid grid-cols-1 gap-8 md:grid-cols-2">
+				{
+					Array.from({ length: 4 }).map((_, idx) => (
+						<div
+							class={cn(
+								'h-64 w-full animate-pulse rounded-lg bg-gray-200',
+								idx % 2 === 1 && 'md:translate-y-8'
+							)}
+						/>
+					))
+				}
+			</div>
+		</PopularToursGrid>
+	</MaxWidthContainer>
 </section>

@@ -1,0 +1,51 @@
+---
+import { LogInIcon, MountainIcon } from 'lucide-react';
+
+import { MaxWidthContainer } from '@/components/site/max-width-container';
+
+const links = [
+	// { name: 'Home', href: '/' },
+	{ name: 'Tours', href: '/tours' },
+	{ name: 'About', href: '/about' },
+	{ name: 'Contact', href: '/contact' }
+];
+
+const { pathname } = Astro.url;
+---
+
+<header class="sticky top-0 z-50 h-16 border-b border-white/20 backdrop-blur-md">
+	<MaxWidthContainer className="flex items-center justify-between">
+		<div class="flex items-center gap-10">
+			<a href="/" class="flex items-center justify-center">
+				<MountainIcon className="size-8 text-primary" />
+				<span class="text-gradient ml-2 text-2xl font-bold"> Outdoors Explorers </span>
+			</a>
+
+			<nav class="hidden space-x-8 md:flex">
+				{
+					links.map(({ href, name }) => (
+						<a
+							href={href}
+							class:list={[
+								'text-sm font-medium transition-colors hover:text-primary',
+								pathname === href ? 'font-semibold text-primary' : ''
+							]}
+						>
+							{name}
+						</a>
+					))
+				}
+			</nav>
+		</div>
+
+		<div>
+			<a
+				href="/login"
+				class="inline-flex transform items-center rounded-md bg-gradient-to-tr from-primary to-secondary px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-primary/90"
+			>
+				<LogInIcon className="mr-2 size-4" />
+				<span>Login</span>
+			</a>
+		</div>
+	</MaxWidthContainer>
+</header>

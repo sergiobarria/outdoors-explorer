@@ -2,8 +2,8 @@
 import { ViewTransitions } from 'astro:transitions';
 import openSansWoof2 from '@fontsource-variable/open-sans/files/open-sans-latin-wght-normal.woff2?url';
 
-import AppHeader from './app-header.astro';
-import AppFooter from './app-footer.astro';
+import Header from './header.astro';
+import Footer from './footer.astro';
 
 import '../globals.css';
 ---
@@ -32,14 +32,14 @@ import '../globals.css';
 
 		<title>Outdoors Explorers</title>
 	</head>
-	<body class="antialiased">
-		<div class="flex min-h-screen flex-col bg-gray-50 text-foreground">
-			<AppHeader />
+	<body class="bg-gray-900 text-white antialiased">
+		<div class="flex min-h-screen flex-col">
+			<Header />
 			<!-- Main entry point 👇 -->
 			<main class="flex-grow">
 				<slot />
 			</main>
-			<AppFooter />
+			<Footer />
 		</div>
 	</body>
 </html>
