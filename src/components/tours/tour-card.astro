@@ -19,19 +19,19 @@ const { tour } = Astro.props as Props;
 const rating = tour.ratingsAverage ?? 0;
 ---
 
-<div class="group flex flex-col space-y-4">
-	<div class="relative h-full overflow-hidden rounded-lg">
+<div class="group flex flex-col overflow-hidden rounded-xl bg-gray-800 text-gray-200">
+	<div class="relative h-full overflow-hidden">
 		<img
 			src={tour.images.at(0) as string}
 			alt={tour.name}
 			width={600}
 			height={400}
-			class="h-64 w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+			class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
 			transition:name="tour-image"
 		/>
 		{/* Image gradient */}
 		<div
-			class="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary via-primary to-lime-500 opacity-50 transition-opacity duration-300 group-hover:opacity-0"
+			class="absolute inset-0 bg-gradient-to-tr from-primary via-primary to-lime-500 opacity-50 transition-opacity duration-300 group-hover:opacity-0"
 		>
 		</div>
 		<div
@@ -46,15 +46,15 @@ const rating = tour.ratingsAverage ?? 0;
 		</div>
 	</div>
 
-	<div class="flex h-full flex-col">
+	<div class="flex h-full flex-col p-3">
 		<div class="mb-4 flex flex-col space-y-2">
 			<a href={`/tours/${tour.slug}`} class="underline-offset-2 hover:underline">
 				<h3 class="text-xl font-bold">{tour.name}</h3>
 			</a>
-			<p class="text-gray-500">{tour.summary}</p>
+			<p>{tour.summary}</p>
 		</div>
 
-		<div class="mt-auto grid grid-cols-2 gap-3 text-sm text-gray-500">
+		<div class="mt-auto grid grid-cols-2 gap-3 text-sm">
 			<div class="flex items-center space-x-2">
 				<CalendarIcon className="size-5 text-primary" />
 				<span>{formatDate(tour.startDates?.at(0) || '')}</span>
@@ -79,14 +79,15 @@ const rating = tour.ratingsAverage ?? 0;
 		<div class="flex items-center justify-between">
 			<div class="flex items-center space-x-2">
 				<DollarSignIcon className="size-5 text-primary" />
-				<span class="text-xl font-semibold">
+				<span class="text-xl font-bold">
 					{formatCurrency(tour.price / 100)}
+					<small>/ per person</small>
 				</span>
 			</div>
 
 			<a
 				href={`/tours/${tour.slug}`}
-				class="flex items-center rounded-lg bg-primary px-3 py-2 text-white hover:bg-primary/90"
+				class="flex items-center rounded-lg bg-primary/90 px-3 py-2 text-white hover:bg-primary/80"
 			>
 				See Details
 			</a>

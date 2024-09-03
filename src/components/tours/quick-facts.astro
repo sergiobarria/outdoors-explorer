@@ -26,12 +26,12 @@ const guides = [
 ];
 ---
 
-<div class="sticky top-8 rounded-lg bg-white shadow-md">
+<div class="sticky top-8 rounded-lg bg-gray-700 text-gray-200 shadow-md">
 	<div class="space-y-6 p-6">
 		<div class="space-y-2">
-			<h2 class="text-2xl font-bold text-gray-800">{tour.name}</h2>
-			<div class="flex items-center text-gray-600">
-				<MapPinIcon className="mr-1 h-4 w-4 text-green-500" />
+			<h2 class="text-2xl font-bold">{tour.name}</h2>
+			<div class="flex items-center text-gray-400">
+				<MapPinIcon className="mr-1 size-4 text-primary" />
 				<span class="text-sm"> Tour Location here... </span>
 			</div>
 		</div>
@@ -40,26 +40,28 @@ const guides = [
 
 		<div class="grid grid-cols-3 gap-4 text-center">
 			<div class="space-y-1">
-				<ClockIcon className="mx-auto h-6 w-6 text-green-500" />
+				<ClockIcon className="mx-auto size-6 text-primary" />
 				<span class="block text-sm font-medium">{tour.duration} days</span>
 			</div>
 			<div class="space-y-1">
-				<UsersIcon className="mx-auto h-6 w-6 text-green-500" />
+				<UsersIcon className="mx-auto size-6 text-primary" />
 				<span class="block text-sm font-medium">Max {tour.maxGroupSize}</span>
 			</div>
 			<div class="space-y-1">
-				<StarIcon className="mx-auto h-6 w-6 text-yellow-400" />
-				<span class="block text-sm font-medium"
-					>{tour.ratingsAverage} ({tour.ratingsQty})</span
-				>
+				<StarIcon className="mx-auto size-6 text-yellow-400" />
+				<span class="block text-sm font-medium">
+					{tour.ratingsAverage} ({tour.ratingsQty})
+				</span>
 			</div>
 		</div>
 
 		<div class="space-y-2">
 			<h3 class="text-lg font-semibold">Next Tour Date</h3>
-			<div class="flex items-center rounded-md bg-gray-50 p-3 text-gray-600">
-				<CalendarIcon className="mr-2 h-5 w-5 text-green-500" />
-				<span class="text-sm font-medium">{formattedNextDate}</span>
+			<div class="flex items-center rounded-md bg-gray-800 p-3">
+				<CalendarIcon className="mr-2 size-5 text-primary" />
+				<span class="text-sm font-medium text-gray-400"
+					>{formattedNextDate || 'Not Available'}</span
+				>
 			</div>
 		</div>
 
@@ -72,7 +74,7 @@ const guides = [
 							<img
 								src={guide.image}
 								alt={guide.name}
-								class="mx-auto mb-2 h-16 w-16 rounded-full object-cover"
+								class="mx-auto mb-2 size-16 rounded-full object-cover"
 							/>
 							<div class="text-sm font-medium">{guide.name}</div>
 							<div class="text-xs text-gray-500">{guide.role}</div>
@@ -84,7 +86,7 @@ const guides = [
 
 		<a
 			href="#"
-			class="mt-4 block rounded-lg bg-primary py-2 text-center font-semibold text-white hover:underline"
+			class="mt-4 block transform rounded-lg bg-primary py-2 text-center font-semibold text-white transition hover:scale-105 hover:bg-secondary"
 		>
 			Book Now
 		</a>
