@@ -1,0 +1,63 @@
+---
+import { CompassIcon, LeafIcon, MapPinIcon, ShieldIcon, StarIcon, UsersIcon } from 'lucide-react';
+
+import Timeline from '@/components/site/timeline.astro';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+
+const values = [
+	{
+		icon: CompassIcon,
+		title: 'Adventure',
+		description:
+			'We believe in the transformative power of adventure to challenge, inspire, and bring out the best in people.'
+	},
+	{
+		icon: ShieldIcon,
+		title: 'Safety',
+		description:
+			'Your well-being is our top priority. We maintain the highest safety standards in all our expeditions.'
+	},
+	{
+		icon: UsersIcon,
+		title: 'Community',
+		description:
+			'We foster a global community of adventurers, connecting people through shared experiences and mutual respect.'
+	},
+	{
+		icon: LeafIcon,
+		title: 'Sustainability',
+		description:
+			'We are committed to preserving the natural environments we explore and supporting local communities.'
+	},
+	{
+		icon: MapPinIcon,
+		title: 'Discovery',
+		description:
+			'We encourage curiosity and lifelong learning through immersive cultural and natural experiences.'
+	},
+	{
+		icon: StarIcon,
+		title: 'Excellence',
+		description:
+			'We strive for excellence in every aspect of our tours, from planning to execution.'
+	}
+];
+---
+
+<section class="relative w-full overflow-hidden py-12 md:py-24">
+	<MaxWidthContainer>
+		<h2 class="text-gradient mb-12 text-center text-3xl font-bold">Our Values & Mission</h2>
+
+		<Timeline items={values} />
+
+		<div class="mt-16 rounded-xl bg-gray-700 p-8 text-center shadow-lg">
+			<h3 class="text-gradient mb-4 text-2xl font-bold">Our Mission</h3>
+			<p class="mx-auto max-w-3xl text-xl text-gray-400">
+				At WildVentures, our mission is to inspire a sense of wonder and respect for the
+				natural world through responsible adventure travel. We aim to create transformative
+				experiences that challenge individuals, foster personal growth, and promote global
+				understanding, all while preserving the environments and cultures we encounter.
+			</p>
+		</div>
+	</MaxWidthContainer>
+</section>

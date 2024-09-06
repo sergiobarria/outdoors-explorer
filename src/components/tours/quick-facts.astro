@@ -1,0 +1,98 @@
+---
+import type { Tour } from 'astro:db';
+import { CalendarIcon, MapPinIcon } from 'lucide-react';
+
+import TourStats from '@/components/site/tour-stats.astro';
+import { formatDateTime } from '@/lib/utils';
+import TourPrice from './tour-price.astro';
+
+interface Props {
+	tour: Pick<
+		typeof Tour.$inferSelect,
+		| 'slug'
+		| 'name'
+		| 'price'
+		| 'discount'
+		| 'duration'
+		| 'difficulty'
+		| 'maxGroupSize'
+		| 'rating'
+		| 'ratingsQty'
+	> & {
+		startDates: { id: string; date: Date }[];
+	};
+}
+
+const { tour } = Astro.props as Props;
+const nextDate = tour.startDates
+	.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+	.find((date) => new Date(date.date) >= new Date());
+const formattedNextDate = formatDateTime(nextDate?.date.toString());
+
+const guides = [
+	{ name: 'Emma Green', role: 'Lead Guide', image: '/placeholder.jpg' },
+	{
+		name: 'Alex Rivers',
+		role: 'Mountain Expert',
+		image: '/placeholder.jpg'
+	},
+	{ name: 'Mike Johnson', role: 'Tour Guide', image: '/placeholder.jpg' }
+];
+---
+
+<div class="sticky top-8 rounded-lg bg-gray-700 text-gray-200 shadow-md">
+	<div class="space-y-6 p-6">
+		<div class="space-y-2">
+			<h2 class="text-2xl font-bold">{tour.name}</h2>
+			<div class="flex items-center text-gray-400">
+				<MapPinIcon className="mr-1 size-4 text-primary" />
+				<span class="text-sm"> Tour Location here... </span>
+			</div>
+		</div>
+
+		<TourPrice price={tour.price} discount={tour.discount} />
+
+		<TourStats
+			duration={tour.duration}
+			groupSize={tour.maxGroupSize}
+			rating={tour.rating as number}
+			ratingsQty={tour.ratingsQty as number}
+		/>
+
+		<div class="space-y-2">
+			<h3 class="text-lg font-semibold">Next Tour Date</h3>
+			<div class="flex items-center rounded-md bg-gray-800 p-3">
+				<CalendarIcon className="mr-2 size-5 text-primary" />
+				<span class="text-sm font-medium text-gray-400">
+					{formattedNextDate || 'Not Available'}
+				</span>
+			</div>
+		</div>
+
+		<div class="space-y-3">
+			<h3 class="text-lg font-semibold">Your Guides</h3>
+			<div class="flex space-x-4">
+				{
+					guides.map((guide) => (
+						<div class="text-center">
+							<img
+								src={guide.image}
+								alt={guide.name}
+								class="mx-auto mb-2 size-16 rounded-full object-cover"
+							/>
+							<div class="text-sm font-medium">{guide.name}</div>
+							<div class="text-xs text-gray-500">{guide.role}</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+		<a
+			href={`/preview?tour=${tour.slug}&date=${nextDate?.id}`}
+			class:list={['btn btn-primary w-full text-white', !nextDate && 'cursor-not-allowed']}
+		>
+			Book Now
+		</a>
+	</div>
+</div>

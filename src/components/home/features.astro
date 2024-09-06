@@ -1,0 +1,43 @@
+---
+import { CompassIcon, LeafIcon, ShieldIcon, UsersIcon } from 'lucide-react';
+
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import Timeline from '@/components/site/timeline.astro';
+
+const features = [
+	{
+		icon: CompassIcon,
+		title: 'Expert Local Guides',
+		description:
+			"Our seasoned guides are not just experts in outdoor adventures; they're locals who know every hidden gem and secret trail. With their in-depth knowledge and passion for nature, you'll discover places and experiences that go beyond the typical tourist spots."
+	},
+	{
+		icon: ShieldIcon,
+		title: 'Safety First Approach',
+		description:
+			'Your well-being is our top priority. We adhere to strict safety protocols, use top-of-the-line equipment, and provide comprehensive safety briefings before each adventure. Our guides are trained in wilderness first aid and emergency response, ensuring you can explore with peace of mind.'
+	},
+	{
+		icon: UsersIcon,
+		title: 'Small Group Experiences',
+		description:
+			'We believe that the best adventures are shared with a close-knit group. Our small group sizes (never more than 12 people) ensure you receive personalized attention from our guides and have the opportunity to form lasting friendships with like-minded adventurers from around the world.'
+	},
+	{
+		icon: LeafIcon,
+		title: 'Eco-Friendly Adventures',
+		description:
+			"We're committed to preserving the natural beauty we explore. Our tours follow Leave No Trace principles, and we partner with local conservation efforts in each destination. By choosing WildVentures, you're not just having an adventure – you're contributing to the protection of our planet's most precious environments."
+	}
+];
+---
+
+<section class="w-full overflow-hidden py-16 md:py-24">
+	<MaxWidthContainer>
+		<h2 class="text-gradient mb-16 text-center text-3xl font-bold md:text-5xl">
+			Why Adventure with Us
+		</h2>
+
+		<Timeline items={features} />
+	</MaxWidthContainer>
+</section>

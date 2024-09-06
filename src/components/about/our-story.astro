@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+---
+
+<section class="w-full overflow-hidden py-12 md:py-24">
+	<MaxWidthContainer>
+		<h2 class="text-gradient mb-8 text-3xl font-bold">Our History</h2>
+
+		<div class="grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
+			<Image
+				src="/hero-4.webp"
+				alt="Outdoors Explorers team in nature"
+				width={600}
+				height={400}
+				class="rounded-lg object-cover"
+			/>
+
+			<div class="space-y-4">
+				<p class="text-gray-400">
+					Outdoors Explorers was born in 2010 from a shared passion for adventure and a
+					deep respect for nature. Our founders, Alex and Sarah, met on a challenging trek
+					in the Himalayas and realized their dream of creating a company that could bring
+					the transformative power of outdoor adventures to people from all walks of life.
+				</p>
+				<p class="text-gray-400">
+					Starting with just three local tours, we've grown to offer expeditions across
+					six continents, always maintaining our commitment to sustainable travel and
+					unforgettable experiences. Over the years, we've helped thousands of adventurers
+					push their limits, discover new cultures, and forge lifelong connections with
+					nature and fellow travelers.
+				</p>
+				<p class="text-gray-400">
+					Today, Outdoors Explorers stands as a leader in the adventure travel industry,
+					known for our expert guides, commitment to safety, and our ability to create
+					journeys that challenge, inspire, and transform.
+				</p>
+			</div>
+		</div>
+	</MaxWidthContainer>
+</section>

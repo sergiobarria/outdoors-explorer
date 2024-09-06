@@ -1,0 +1,29 @@
+---
+import { ClockIcon, StarIcon, UsersIcon } from 'lucide-react';
+
+interface Props {
+	duration: number;
+	groupSize: number;
+	rating: number;
+	ratingsQty: number;
+}
+
+const { duration, groupSize, rating, ratingsQty } = Astro.props as Props;
+---
+
+<div class="grid grid-cols-3 gap-4 text-center">
+	<div class="space-y-1">
+		<ClockIcon className="mx-auto size-6 text-primary" />
+		<span class="block text-sm font-medium">{duration} days</span>
+	</div>
+	<div class="space-y-1">
+		<UsersIcon className="mx-auto size-6 text-primary" />
+		<span class="block text-sm font-medium">Max {groupSize}</span>
+	</div>
+	<div class="space-y-1">
+		<StarIcon className="mx-auto size-6 text-yellow-400" />
+		<span class="block text-sm font-medium">
+			{rating ?? 0} ({ratingsQty ?? 0})
+		</span>
+	</div>
+</div>

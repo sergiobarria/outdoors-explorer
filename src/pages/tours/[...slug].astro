@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/layout.astro';
+import TourDetailCover from '@/components/tours/tour-detail-cover.astro';
+import TourOverview from '@/components/tours/tour-overview.astro';
+import TourItenerary from '@/components/tours/tour-itenerary.astro';
+import QuickFacts from '@/components/tours/quick-facts.astro';
+import TourReviews from '@/components/tours/tour-reviews.astro';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import { getTourBySlug } from '@/data-access/tours';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/404');
+
+const tour = await getTourBySlug(slug);
+if (!tour) return Astro.redirect('/404');
+---
+
+<Layout>
+	<MaxWidthContainer className="grid grid-cols-1 gap-8 py-8 lg:grid-cols-3">
+		<div class="space-y-6 lg:col-span-2">
+			<TourDetailCover tour={tour} />
+			<TourOverview name={tour.name} description={tour.description} images={tour.images} />
+			<TourItenerary />
+			<TourReviews tourId={tour.id} />
+		</div>
+
+		<div class="lg:col-span-1">
+			<QuickFacts tour={tour} />
+		</div>
+	</MaxWidthContainer>
+</Layout>

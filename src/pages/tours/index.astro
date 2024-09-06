@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+
+import Layout from '@/layouts/layout.astro';
+import ToursList from '@/components/tours/tours-list.astro';
+import TourCardSkeleton from '@/components/tours/tour-card-skeleton.astro';
+import PageHeader from '@/components/site/page-header.astro';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import { aboutImg2 } from '@/assets';
+---
+
+<Layout>
+	<PageHeader>
+		<Image
+			slot="background-image"
+			src={aboutImg2}
+			alt="Background Image"
+			quality={80}
+			class="pointer-events-none h-full object-cover"
+		/>
+		<Fragment slot="title">Explore Our Adventures</Fragment>
+		<Fragment slot="description">
+			Discover a world of thrilling experiences and unforgettable journeys with our curated
+			selection of tours
+		</Fragment>
+	</PageHeader>
+
+	<section class="py-12 md:py-24">
+		<MaxWidthContainer>
+			<h1
+				class="text-gradient mb-8 text-center text-3xl font-bold tracking-tighter sm:text-4xl"
+			>
+				Find Your Perfect Adventure
+			</h1>
+
+			<div class="mb-6 w-full max-w-[400px] md:w-1/2">
+				<form id="search-form">
+					<input
+						id="search"
+						type="search"
+						placeholder="Search Tours by Name"
+						class="input input-md input-bordered w-full"
+						name="search"
+					/>
+				</form>
+			</div>
+
+			<ToursList server:defer>
+				<div slot="fallback" class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+					{Array.from({ length: 12 }).map(() => <TourCardSkeleton />)}
+				</div>
+			</ToursList>
+		</MaxWidthContainer>
+	</section>
+</Layout>
+
+<script>
+	const form = document.getElementById('search-form') as HTMLFormElement;
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const formData = new FormData(form);
+		const searchTerm = formData.get('search')?.toString();
+		const url = new URL('/tours', window.location.origin);
+		url.searchParams.set('q', searchTerm || '');
+		window.location.assign(url.toString());
+	});
+
+	// Get the search query from the URL if it exists and set it in the search input
+	const url = new URL(window.location.href);
+	const searchQuery = url.searchParams.get('q');
+	const searchInput = document.getElementById('search') as HTMLInputElement;
+	if (searchQuery) {
+		searchInput.value = searchQuery;
+	}
+
+	// Add event listener to page load, if there is no search query, remove it from the URL
+	window.addEventListener('load', () => {
+		if (!searchQuery) {
+			const url = new URL(window.location.href);
+			url.searchParams.delete('q');
+			window.history.replaceState({}, '', url.toString());
+		}
+	});
+</script>

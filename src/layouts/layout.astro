@@ -1,0 +1,19 @@
+---
+import Head from './head.astro';
+import Header from './header.astro';
+import Footer from './footer.astro';
+---
+
+<html lang="en">
+	<Head />
+	<body class="bg-gray-900 text-white antialiased">
+		<div class="flex min-h-screen flex-col">
+			<Header />
+			<!-- Main entry point 👇 -->
+			<main class="flex-grow">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html>

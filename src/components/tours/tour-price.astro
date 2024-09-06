@@ -1,0 +1,28 @@
+---
+import { calculateDiscountPrice, formatCurrency } from '@/lib/utils';
+
+interface Props {
+	price: number;
+	discount: number | null;
+}
+
+const { price, discount } = Astro.props as Props;
+---
+
+<p>
+	{
+		discount ? (
+			<Fragment>
+				<span class="mr-2 text-lg font-bold text-primary">
+					${calculateDiscountPrice(price / 100, discount).toFixed(2)} USD
+				</span>
+				<span class="text-sm text-gray-500 line-through">
+					${(price / 100).toFixed(2)} USD
+				</span>
+				<span class="text-destructive ml-2 text-sm font-semibold">{discount}% OFF</span>
+			</Fragment>
+		) : (
+			<span class="text-lg font-bold text-primary">{formatCurrency(price / 100)}</span>
+		)
+	}
+</p>

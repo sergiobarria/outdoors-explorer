@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import { MountainIcon } from 'lucide-react';
+
+import Head from './head.astro';
+import { heroImg } from '@/assets';
+---
+
+<html>
+	<Head />
+	<body class="bg-gray-900 font-sans text-white antialiased">
+		<div class="flex min-h-screen">
+			<div class="hidden bg-cover bg-center md:flex md:w-1/2">
+				<div
+					class="relative flex h-full w-full items-center justify-center bg-black bg-opacity-40"
+				>
+					<Image
+						src={heroImg}
+						alt="auth-hero"
+						class="absolute inset-0 h-full w-full object-cover"
+					/>
+					<!-- Overlay -->
+					<div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+					<div class="absolute inset-x-0 bottom-0 z-40 p-10 text-white">
+						<MountainIcon className="mb-4 size-16" />
+						<h1 class="mb-4 text-4xl font-bold">Adventure Awaits</h1>
+						<p class="text-xl">Join Outdoors Explorers and start your journey!</p>
+					</div>
+				</div>
+			</div>
+			<div class="flex w-full items-center justify-center p-8 md:w-1/2 md:p-16">
+				<slot />
+			</div>
+		</div>
+	</body>
+</html>

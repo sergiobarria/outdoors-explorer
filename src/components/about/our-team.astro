@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import { MountainIcon } from 'lucide-react';
+
+const teamMembers = [
+	{
+		name: 'Alex Thompson',
+		role: 'Co-Founder & CEO',
+		image: 'https://xsgames.co/randomusers/assets/avatars/male/27.jpg',
+		bio: 'With over 20 years of mountaineering experience, Alex leads our company with passion and expertise.'
+	},
+	{
+		name: 'Sarah Chen',
+		role: 'Co-Founder & Head of Operations',
+		image: 'https://xsgames.co/randomusers/assets/avatars/female/21.jpg',
+		bio: "Sarah's background in environmental science shapes our commitment to sustainable travel practices."
+	},
+	{
+		name: 'Mike Rodriguez',
+		role: 'Lead Guide & Safety Officer',
+		image: 'https://xsgames.co/randomusers/assets/avatars/male/23.jpg',
+		bio: 'A certified wilderness first responder, Mike ensures the safety of all our expeditions.'
+	},
+	{
+		name: 'Emma Larsson',
+		role: 'Cultural Liaison & Guide',
+		image: 'https://xsgames.co/randomusers/assets/avatars/female/40.jpg',
+		bio: 'Fluent in five languages, Emma specializes in creating immersive cultural experiences.'
+	},
+	{
+		name: 'David Okafor',
+		role: 'Environmental Specialist',
+		image: 'https://xsgames.co/randomusers/assets/avatars/male/52.jpg',
+		bio: 'David works to minimize our ecological footprint and educate travelers on conservation.'
+	},
+	{
+		name: 'Elena Kowalski',
+		role: 'Adventure Photographer',
+		image: 'https://xsgames.co/randomusers/assets/avatars/female/64.jpg',
+		bio: 'Yuki captures the breathtaking moments of our journeys, inspiring future adventurers.'
+	}
+];
+---
+
+<section class="w-full overflow-hidden py-16 md:py-24 lg:py-32">
+	<MaxWidthContainer>
+		<h2 class="text-gradient mb-12 text-center text-4xl font-bold tracking-tighter sm:text-5xl">
+			Meet Our Team
+		</h2>
+
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+			{
+				teamMembers.map((member) => (
+					<div class="group relative overflow-hidden rounded-2xl shadow-lg shadow-gray-600 transition-all duration-300 hover:shadow-2xl">
+						<Image
+							src={member.image}
+							alt={member.name}
+							width={600}
+							height={400}
+							class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
+
+						<div class="absolute inset-x-0 bottom-0 p-6 text-white">
+							<h3 class="mb-1 text-2xl font-bold">{member.name}</h3>
+							<p class="mb-2 text-sm">{member.role}</p>
+							<p class="text-sm opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+								{member.bio}
+							</p>
+						</div>
+						<div class="absolute right-4 top-4">
+							<MountainIcon className="size-8 text-white opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</MaxWidthContainer>
+</section>

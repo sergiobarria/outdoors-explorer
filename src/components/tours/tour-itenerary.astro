@@ -1,0 +1,64 @@
+---
+import { BedIcon, CoffeeIcon, MapPinIcon, UtensilsIcon } from 'lucide-react';
+
+const itineraryData = [
+	{
+		day: 1,
+		title: 'Arrival in Zurich',
+		activities: [
+			{ icon: MapPinIcon, text: 'Arrive at Zurich Airport' },
+			{ icon: CoffeeIcon, text: 'Welcome meeting at the hotel' },
+			{ icon: UtensilsIcon, text: 'Group dinner at a local Swiss restaurant' }
+		]
+	},
+	{
+		day: 2,
+		title: 'Exploring Lucerne',
+		activities: [
+			{ icon: CoffeeIcon, text: 'Breakfast at the hotel' },
+			{ icon: MapPinIcon, text: "Guided tour of Lucerne's Old Town" },
+			{ icon: UtensilsIcon, text: 'Lunch at a lakeside café' },
+			{ icon: MapPinIcon, text: 'Visit to the Swiss Transport Museum' },
+			{ icon: BedIcon, text: 'Overnight in Lucerne' }
+		]
+	},
+	{
+		day: 3,
+		title: 'Journey to Interlaken',
+		activities: [
+			{ icon: CoffeeIcon, text: 'Early breakfast' },
+			{ icon: MapPinIcon, text: 'Scenic train ride to Interlaken' },
+			{ icon: MapPinIcon, text: 'Boat cruise on Lake Brienz' },
+			{ icon: UtensilsIcon, text: 'Dinner with mountain views' },
+			{ icon: BedIcon, text: 'Overnight in Interlaken' }
+		]
+	}
+	// Add more days as needed
+];
+---
+
+<section class="rounded-lg bg-gray-700 p-6 text-gray-200 shadow-md">
+	<h3 class="mb-4 text-xl font-semibold">Tour Itinerary</h3>
+	<div class="space-y-8">
+		{
+			itineraryData.map((day) => (
+				<div class="relative pl-8">
+					<div class="absolute left-0 top-0 flex size-6 items-center justify-center rounded-full bg-green-500">
+						<span class="text-sm font-bold text-white">{day.day}</span>
+					</div>
+					<div class="border-l-2 border-green-200 pb-8 pl-8 last:pb-0">
+						<h3 class="mb-3 text-xl font-semibold text-gray-300">{day.title}</h3>
+						<ul class="space-y-3">
+							{day.activities.map((activity) => (
+								<li class="flex items-start">
+									<activity.icon className="size-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+									<span class="text-gray-400">{activity.text}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			))
+		}
+	</div>
+</section>

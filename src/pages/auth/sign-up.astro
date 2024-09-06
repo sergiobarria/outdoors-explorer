@@ -1,0 +1,165 @@
+---
+import { isInputError } from 'astro:actions';
+import { actions } from 'astro:actions';
+import { MountainIcon } from 'lucide-react';
+
+import AuthLayout from '@/layouts/auth-layout.astro';
+
+export const prerender = false;
+const result = Astro.getActionResult(actions.signUp);
+if (result && !result.error) {
+	return Astro.redirect('/dashboard');
+}
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+---
+
+<AuthLayout>
+	<div class="w-full max-w-lg">
+		<div class="mb-4 text-center">
+			<MountainIcon className="mx-auto mb-4 size-12 text-primary" />
+			<h2 class="text-gradient text-3xl font-bold">Create Your Account</h2>
+			<p class="mt-2 text-gray-600">
+				Sign up and start exploring the world with Outdoors Explorers
+			</p>
+		</div>
+
+		{
+			result?.error && (
+				<p class="my-3 rounded-lg bg-error px-3 py-2 text-white">{result.error.message}</p>
+			)
+		}
+		<form id="sign-up-form" method="POST" action={actions.signUp} class="space-y-4">
+			<div class="flex items-center gap-2">
+				<div class="w-full">
+					<label class="form-control">
+						<div class="label">
+							<span class="label-text">Tell us is your first name</span>
+						</div>
+						<input
+							type="text"
+							name="firstName"
+							placeholder="Type here"
+							class="input input-md input-bordered w-full"
+						/>
+					</label>
+					{
+						inputErrors.firstName && (
+							<small class="italic text-error">
+								{inputErrors.firstName?.join(',')}
+							</small>
+						)
+					}
+				</div>
+
+				<label class="form-control w-full">
+					<div class="label">
+						<span class="label-text">Tell us your last name</span>
+					</div>
+					<input
+						type="text"
+						name="lastName"
+						placeholder="Type here"
+						class="input input-md input-bordered w-full"
+					/>
+					{
+						inputErrors.lastName && (
+							<small class="italic text-error">
+								{inputErrors.lastName?.join(',')}
+							</small>
+						)
+					}
+				</label>
+			</div>
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text">What is your email?</span>
+				</div>
+				<input
+					type="text"
+					name="email"
+					placeholder="Type here"
+					class="input input-md input-bordered w-full"
+				/>
+				{
+					inputErrors.email && (
+						<small class="italic text-error">{inputErrors.email?.join(',')}</small>
+					)
+				}
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text">Add a secure password</span>
+				</div>
+				<input
+					type="password"
+					name="password"
+					placeholder="********"
+					class="input input-md input-bordered w-full"
+				/>
+				{
+					inputErrors.password && (
+						<small class="italic text-error">{inputErrors.password?.join(',')}</small>
+					)
+				}
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text">Please confirm your password</span>
+				</div>
+				<input
+					type="password"
+					name="passwordConfirmation"
+					placeholder="********"
+					class="input input-md input-bordered w-full"
+				/>
+				{
+					inputErrors.passwordConfirmation && (
+						<small class="italic text-error">
+							{inputErrors.passwordConfirmation?.join(',')}
+						</small>
+					)
+				}
+			</label>
+
+			<div class="form-control">
+				<label class="label cursor-pointer justify-start gap-4">
+					<input
+						type="checkbox"
+						name="acceptedTerms"
+						checked="checked"
+						class="checkbox-primary checkbox"
+					/>
+					{
+						inputErrors.acceptedTerms && (
+							<small class="italic text-error">
+								{inputErrors.acceptedTerms?.join(',')}
+							</small>
+						)
+					}
+					<p class="label-text">
+						I agree to the{' '}
+						<a href="#" class="text-primary"> Terms of Service </a>{' '}
+						and{' '}
+						<a href="#" class="text-primary"> Privacy Policy </a>
+					</p>
+				</label>
+			</div>
+
+			<button class="btn w-full bg-gradient-to-r from-primary to-secondary text-white">
+				Sign Up
+			</button>
+		</form>
+
+		<p class="mt-6 text-center text-gray-600">
+			Already have an account?{' '}
+			<a href="/auth/sign-in" class="text-primary hover:underline">Sign In</a>
+		</p>
+		<p class="mt-4 text-center text-gray-600">
+			Return to{' '}
+			<a href="/" class="text-primary hover:underline">Home</a>
+		</p>
+	</div>
+</AuthLayout>

@@ -1,0 +1,19 @@
+---
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import Layout from '@/layouts/layout.astro';
+
+if (!Astro.locals.user) {
+	return Astro.redirect('/auth/sign-in');
+}
+---
+
+<Layout>
+	<section class="py-12">
+		<MaxWidthContainer>
+			<div class="grid grid-cols-1 md:grid-cols-4">
+				<div class="md:col-span-1">navigation bar</div>
+				<div class="md:col-span-3">content</div>
+			</div>
+		</MaxWidthContainer>
+	</section>
+</Layout>

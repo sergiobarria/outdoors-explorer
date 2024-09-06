@@ -1,0 +1,24 @@
+---
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+---
+
+<section class="relative w-full py-12 text-white md:py-24 lg:py-32">
+	{/* Background Image */}
+	<div class="absolute inset-0 z-0">
+		<slot name="background-image" />
+	</div>
+
+	{/* Dark overlay */}
+	<div class="absolute inset-0 z-10 bg-black opacity-70"></div>
+
+	<MaxWidthContainer className="relative z-40">
+		<h1
+			class="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none"
+		>
+			<slot name="title" />
+		</h1>
+		<p class="max-w-[700px] text-gray-300 md:text-xl">
+			<slot name="description" />
+		</p>
+	</MaxWidthContainer>
+</section>

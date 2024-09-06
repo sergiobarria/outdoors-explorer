@@ -1,0 +1,125 @@
+---
+import { Tour } from 'astro:db';
+import {
+	CalendarIcon,
+	FootprintsIcon,
+	HourglassIcon,
+	MapIcon,
+	StarIcon,
+	UserIcon
+} from 'lucide-react';
+
+import { formatDate } from '@/lib/utils';
+
+interface Props {
+	tour: Pick<
+		typeof Tour.$inferSelect,
+		| 'id'
+		| 'name'
+		| 'summary'
+		| 'slug'
+		| 'rating'
+		| 'ratingsQty'
+		| 'price'
+		| 'maxGroupSize'
+		| 'duration'
+		| 'difficulty'
+	> & {
+		image: string;
+		startDate: Date | null;
+	};
+}
+
+const { tour } = Astro.props as Props;
+const rating = tour.rating ?? 0;
+---
+
+<div class="group relative flex min-h-[500px] flex-col overflow-hidden rounded-xl bg-gray-900">
+	<div class="h-full w-full overflow-hidden rounded-xl">
+		<img
+			src={tour.image}
+			alt={tour.name}
+			width={600}
+			height={400}
+			class="h-full w-full object-cover"
+		/>
+		<!-- Dark gradient overlay -->
+		<div
+			class="absolute inset-x-0 bg-gradient-to-t from-black via-black to-transparent opacity-70"
+		>
+		</div>
+
+		<!-- Card Content -->
+		<div
+			class:list={[
+				'absolute inset-x-0 bottom-0 z-10 flex h-min flex-col rounded-xl bg-black/70 p-4 text-white',
+				'duration-400transition-all ease-in-out group-hover:h-2/3 group-hover:bg-opacity-20 group-hover:backdrop-blur-md group-hover:backdrop-filter'
+			]}
+		>
+			<!-- Default Visible Section -->
+			<div class="flex flex-col space-y-2">
+				<!-- Rating and Review Section -->
+				<div class="flex items-center space-x-2">
+					<div class="flex items-center gap-0.5">
+						{[...Array(5)].map(() => <StarIcon className="size-4 fill-primary" />)}
+					</div>
+					<span class="font-semibold">{rating.toFixed(1)}</span>
+					<small>({tour.ratingsQty} {tour.ratingsQty === 1 ? 'review' : 'reviews'})</small
+					>
+				</div>
+
+				<!-- Tour Name -->
+				<h3 class="text-xl font-bold">{tour.name}</h3>
+
+				<!-- Tour Location -->
+				<div class="mt-1 flex items-center space-x-2">
+					<MapIcon className="size-4 text-primary" />
+					<span class="text-sm">Location here...</span>
+				</div>
+			</div>
+
+			<!-- Hidden by default, shown on hover -->
+			<div
+				class="mt-4 hidden translate-y-full transform opacity-0 transition-all duration-300 ease-out group-hover:block group-hover:translate-y-0 group-hover:opacity-100"
+			>
+				<!-- Tour Summary -->
+				<p class="text-gray-200">{tour.summary}</p>
+
+				<!-- Extra Details (Dates, Group Size, etc.) -->
+				<div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+					<div class="flex items-center space-x-2">
+						<CalendarIcon className="size-5 text-primary" />
+						<span>{formatDate(tour.startDate?.toString() || '')}</span>
+					</div>
+					<div class="flex items-center space-x-2">
+						<UserIcon className="size-5 text-primary" />
+						<span class="capitalize">{tour.maxGroupSize} people</span>
+					</div>
+					<div class="flex items-center space-x-2">
+						<HourglassIcon className="size-5 text-primary" />
+						<span class="capitalize">{tour.duration} days</span>
+					</div>
+					<div class="flex items-center space-x-2">
+						<FootprintsIcon className="size-5 text-primary" />
+						<span class="capitalize">{tour.difficulty}</span>
+					</div>
+				</div>
+
+				<!-- Price and Call to Action -->
+				<div class="mt-6 flex items-center justify-between">
+					<p>
+						From <span class="text-lg font-bold"
+							>USD {(tour.price / 100).toFixed(2)}</span
+						> / person
+					</p>
+					<a
+						href={`/tours/${tour.slug}`}
+						class="btn btn-primary btn-sm text-white hover:bg-secondary"
+					>
+						See Details
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
