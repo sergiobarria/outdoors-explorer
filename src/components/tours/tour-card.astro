@@ -53,7 +53,7 @@ const rating = tour.rating ?? 0;
 		<div
 			class:list={[
 				'absolute inset-x-0 bottom-0 z-10 flex h-min flex-col rounded-xl bg-black/70 p-4 text-white',
-				'duration-400transition-all ease-in-out group-hover:h-2/3 group-hover:bg-opacity-20 group-hover:backdrop-blur-md group-hover:backdrop-filter'
+				'duration-400 transition-all ease-in-out group-hover:h-2/3 group-hover:bg-opacity-20 group-hover:backdrop-blur-md group-hover:backdrop-filter'
 			]}
 		>
 			<!-- Default Visible Section -->
@@ -80,7 +80,7 @@ const rating = tour.rating ?? 0;
 
 			<!-- Hidden by default, shown on hover -->
 			<div
-				class="mt-4 hidden translate-y-full transform opacity-0 transition-all duration-300 ease-out group-hover:block group-hover:translate-y-0 group-hover:opacity-100"
+				class="mt-auto hidden translate-y-full transform opacity-0 transition-all duration-300 ease-out group-hover:block group-hover:translate-y-0 group-hover:opacity-100"
 			>
 				<!-- Tour Summary -->
 				<p class="text-gray-200">{tour.summary}</p>

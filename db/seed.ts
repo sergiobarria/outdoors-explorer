@@ -1,9 +1,9 @@
-import { db, Tour, TourImage, TourStartDate } from 'astro:db';
+import { db, Profile, Tour, TourImage, TourStartDate, User } from 'astro:db';
+import { createId } from '@paralleldrive/cuid2';
+import slugify from 'slugify';
 
 import { TOURS_SIMPLE } from 'data/tours-simple';
 import { TOUR_IMAGES } from 'data/tour-images';
-import slugify from 'slugify';
-import { createId } from '@paralleldrive/cuid2';
 
 type NewStartDate = typeof TourStartDate.$inferInsert;
 type NewTourImage = typeof TourImage.$inferInsert;
@@ -74,4 +74,25 @@ async function seedTours() {
 // https://astro.build/db/seed
 export default async function seed() {
 	await seedTours();
+
+	// Add test user
+	const [user] = await db
+		.insert(User)
+		.values({
+			id: createId(),
+			email: 'sergio@email.com',
+			password:
+				'$argon2id$v=19$m=19456,t=2,p=1$JnjYnrVUpJDVQw+Q5pp9xA$ulaKm+2lz29AaybETB++En4TCiPB6j6z1dvip6FX2mA', // password
+			acceptedTerms: true
+		})
+		.returning({ id: User.id });
+
+	await db.insert(Profile).values({
+		id: createId(),
+		userId: user.id,
+		firstName: 'Sergio',
+		lastName: 'b'
+	});
+
+	// Add more seed functions here...
 }

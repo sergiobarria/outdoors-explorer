@@ -5,8 +5,9 @@ import { MapPinIcon } from 'lucide-react';
 import Layout from '@/layouts/layout.astro';
 import MaxWidthContainer from '@/components/site/max-width-container.astro';
 import TourStats from '@/components/site/tour-stats.astro';
-import { calculateTotalPrice, formatCurrency } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
 import { getTourBySlug } from '@/data-access/tours';
+import { calculateBookingPrice } from '@/lib/pricing';
 
 const refererUrl = new URL(Astro.request.headers.get('referer') as string);
 if (!Astro.locals.user) {
@@ -30,7 +31,13 @@ const tour = await getTourBySlug(tourSlug as string);
 if (!tour) return Astro.redirect('/404');
 
 const selectedDateId = tour?.startDates.find((date) => date.id === tourDate)?.id || null;
-if (!selectedDateId) return Astro.redirect('/404'); // This should never happen but just in case
+if (!selectedDateId) return Astro.redirect('/404'); // This should never happen but just in cases
+
+const { subtotal, bookingFee, processingFee, salesTax, total } = calculateBookingPrice(
+	tour.price,
+	1,
+	tour.discount ?? 0
+); // Adjust this line to include the quantity
 ---
 
 <Layout>
@@ -66,35 +73,32 @@ if (!selectedDateId) return Astro.redirect('/404'); // This should never happen 
 
 					<hr class="my-6 border-gray-600" />
 
-					<div class="space-y-2 text-sm text-gray-400">
-						<p class="flex justify-between">
-							Tour Price: <span>{formatCurrency(tour.price / 100)}</span>
-						</p>
-						{
-							tour.discount && (
-								<p class="flex justify-between">
-									Tour Discount: <span>{`${tour.discount}%`}</span>
-								</p>
-							)
-						}
-						{
-							!tour.discount && (
-								<p class="flex justify-between">
-									Tour Discount: <span>-</span>
-								</p>
-							)
-						}
-
-						<hr class="my-6 border-gray-600" />
-						<p class="flex justify-between">
-							Order Total: <span
-								>{
-									formatCurrency(
-										calculateTotalPrice(tour.price / 100, 1, tour.discount)
-									)
-								}</span
-							>
-						</p>
+					<div>
+						<h2 class="mb-4 text-xl font-bold">Price Breakdown</h2>
+						<div class="space-y-1 text-sm text-gray-400">
+							<p class="flex justify-between">
+								Subtotal:
+								<span class="space-x-3">
+									<span>({(tour.price / 100).toFixed(2)} x {1})</span>
+									<span>{formatCurrency(subtotal / 100)}</span>
+								</span>
+							</p>
+							<p class="flex justify-between">
+								Booking Fee (5 USD): <span>{formatCurrency(bookingFee / 100)}</span>
+							</p>
+							<p class="flex justify-between">
+								Processing Fee (2.9%): <span
+									>{formatCurrency(processingFee / 100)}</span
+								>
+							</p>
+							<p class="flex justify-between">
+								Sales Tax (7%): <span>{formatCurrency(salesTax / 100)}</span>
+							</p>
+							<hr class="my-6 border-dashed border-gray-600" />
+							<p class="flex justify-between text-base font-semibold text-white">
+								Total: <span>{formatCurrency(total / 100)}</span>
+							</p>
+						</div>
 					</div>
 
 					<div class="mt-6 flex flex-col items-end">

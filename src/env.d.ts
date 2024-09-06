@@ -1,6 +1,9 @@
 /// <reference path="../.astro/types.d.ts" />
 
 interface ImportMetaEnv {
+	readonly VITE_APP_SALES_TAX: number;
+	readonly VITE_APP_BOOKING_FEE: number;
+	readonly VITE_APP_PROCESSING_FEE: number;
 	readonly DATABASE_URL: string;
 	readonly DATABASE_AUTH_TOKEN: string;
 	readonly CLOUDFLARE_R2_BUCKET_NAME: string;
