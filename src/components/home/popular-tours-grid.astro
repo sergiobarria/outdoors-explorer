@@ -1,31 +1,7 @@
 ---
 import { StarIcon } from 'lucide-react';
 
-import { db } from '@/db';
-import { cn } from '@/lib/utils';
-import { getImageUrl } from '@/lib/s3';
-
-async function getPopularTours() {
-	const tours = await db.query.toursTable.findMany({
-		columns: {
-			name: true,
-			slug: true,
-			summary: true,
-			price: true,
-			duration: true,
-			ratingsAverage: true,
-			difficulty: true
-		},
-		with: { images: { columns: { imageKey: true }, limit: 1 } },
-		orderBy: (records, { desc }) => [desc(records.ratingsAverage)],
-		limit: 4
-	});
-
-	return tours.map((tour) => ({
-		...tour,
-		images: tour.images.map((img) => getImageUrl(img.imageKey))
-	}));
-}
+import { getPopularTours } from '@/data-access/tours';
 
 const tours = await getPopularTours();
 ---
@@ -34,14 +10,14 @@ const tours = await getPopularTours();
 	{
 		tours.map((tour, idx) => (
 			<div
-				class={cn(
+				class:list={[
 					'group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl',
 					idx % 2 === 1 && 'md:translate-y-8'
-				)}
+				]}
 			>
 				<div class="relative h-64 overflow-hidden">
 					<img
-						src={tour.images.at(0)}
+						src={tour.image}
 						alt={tour.name}
 						class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
 					/>
@@ -70,7 +46,7 @@ const tours = await getPopularTours();
 
 					<div class="absolute right-4 top-4 flex items-center rounded-full bg-black px-3 py-1 text-sm font-semibold text-white backdrop-blur-sm">
 						<StarIcon className="size-4 mr-1 fill-current" />
-						<span>{tour.ratingsAverage}</span>
+						<span>{tour.rating}</span>
 					</div>
 
 					<div class="absolute right-4 top-16 rounded-full bg-black px-3 py-1 text-sm font-semibold capitalize text-white backdrop-blur-sm">

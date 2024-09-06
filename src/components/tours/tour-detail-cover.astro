@@ -1,9 +1,11 @@
 ---
-import type { TourDetailWithDescription } from '@/db/types';
+import type { Tour } from 'astro:db';
 import { StarIcon } from 'lucide-react';
 
 interface Props {
-	tour: TourDetailWithDescription;
+	tour: Pick<typeof Tour.$inferSelect, 'id' | 'name' | 'rating' | 'ratingsQty'> & {
+		images: string[];
+	};
 }
 
 const { tour } = Astro.props as Props;
@@ -25,7 +27,7 @@ const { tour } = Astro.props as Props;
 				<h2 class="font-bold-mb-2 text-2xl">{tour.name}</h2>
 				<div class="flex items-center">
 					<StarIcon className="mr-1 size-5 text-amber-500" />
-					<span class="mr-2 font-semibold">{tour.ratingsAverage}</span>
+					<span class="mr-2 font-semibold">{tour.rating}</span>
 					<small>({tour.ratingsQty} reviews)</small>
 				</div>
 			</div>

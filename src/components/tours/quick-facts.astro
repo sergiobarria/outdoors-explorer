@@ -1,19 +1,33 @@
 ---
-import { CalendarIcon, ClockIcon, MapPinIcon, StarIcon, UsersIcon } from 'lucide-react';
+import type { Tour } from 'astro:db';
+import { CalendarIcon, MapPinIcon } from 'lucide-react';
 
-import type { TourDetailWithDescription } from '@/db/types';
-import TourPrice from './tour-price.astro';
+import TourStats from '@/components/site/tour-stats.astro';
 import { formatDateTime } from '@/lib/utils';
+import TourPrice from './tour-price.astro';
 
 interface Props {
-	tour: TourDetailWithDescription;
+	tour: Pick<
+		typeof Tour.$inferSelect,
+		| 'slug'
+		| 'name'
+		| 'price'
+		| 'discount'
+		| 'duration'
+		| 'difficulty'
+		| 'maxGroupSize'
+		| 'rating'
+		| 'ratingsQty'
+	> & {
+		startDates: { id: string; date: Date }[];
+	};
 }
 
 const { tour } = Astro.props as Props;
 const nextDate = tour.startDates
-	.sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
-	.find((date) => new Date(date) >= new Date());
-const formattedNextDate = formatDateTime(nextDate);
+	.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+	.find((date) => new Date(date.date) >= new Date());
+const formattedNextDate = formatDateTime(nextDate?.date.toString());
 
 const guides = [
 	{ name: 'Emma Green', role: 'Lead Guide', image: '/placeholder.jpg' },
@@ -38,30 +52,20 @@ const guides = [
 
 		<TourPrice price={tour.price} discount={tour.discount} />
 
-		<div class="grid grid-cols-3 gap-4 text-center">
-			<div class="space-y-1">
-				<ClockIcon className="mx-auto size-6 text-primary" />
-				<span class="block text-sm font-medium">{tour.duration} days</span>
-			</div>
-			<div class="space-y-1">
-				<UsersIcon className="mx-auto size-6 text-primary" />
-				<span class="block text-sm font-medium">Max {tour.maxGroupSize}</span>
-			</div>
-			<div class="space-y-1">
-				<StarIcon className="mx-auto size-6 text-yellow-400" />
-				<span class="block text-sm font-medium">
-					{tour.ratingsAverage} ({tour.ratingsQty})
-				</span>
-			</div>
-		</div>
+		<TourStats
+			duration={tour.duration}
+			groupSize={tour.maxGroupSize}
+			rating={tour.rating as number}
+			ratingsQty={tour.ratingsQty as number}
+		/>
 
 		<div class="space-y-2">
 			<h3 class="text-lg font-semibold">Next Tour Date</h3>
 			<div class="flex items-center rounded-md bg-gray-800 p-3">
 				<CalendarIcon className="mr-2 size-5 text-primary" />
-				<span class="text-sm font-medium text-gray-400"
-					>{formattedNextDate || 'Not Available'}</span
-				>
+				<span class="text-sm font-medium text-gray-400">
+					{formattedNextDate || 'Not Available'}
+				</span>
 			</div>
 		</div>
 
@@ -85,8 +89,8 @@ const guides = [
 		</div>
 
 		<a
-			href="#"
-			class="mt-4 block transform rounded-lg bg-primary py-2 text-center font-semibold text-white transition hover:scale-105 hover:bg-secondary"
+			href={`/preview?tour=${tour.slug}&date=${nextDate?.id}`}
+			class:list={['btn btn-primary w-full text-white', !nextDate && 'cursor-not-allowed']}
 		>
 			Book Now
 		</a>

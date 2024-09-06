@@ -1,40 +1,26 @@
 ---
-import { db } from '@/db';
-import { getImageUrl } from '@/lib/s3';
+import { getFeaturedTour } from '@/data-access/tours';
 
-const [result] = await db.query.toursTable.findMany({
-	columns: { name: true, summary: true, slug: true },
-	where: (tours, { eq }) => eq(tours.isFeatured, true),
-	with: {
-		images: {
-			columns: { imageKey: true },
-			limit: 1
-		}
-	},
-	orderBy: (records, { desc }) => [desc(records.ratingsAverage)],
-	limit: 1
-});
-
-const featuredTour = {
-	...result,
-	image: getImageUrl(result.images?.at(0)?.imageKey || '')
-};
+const featuredTour = await getFeaturedTour();
 ---
 
 <div class="relative flex-1 overflow-hidden">
 	<img
-		src={featuredTour.image}
+		src={featuredTour?.image}
 		alt="featured tour"
 		class="absolute inset-0 h-full w-full object-cover object-center"
 	/>
 
 	<div class="animate-fade-in absolute inset-0 flex items-end bg-black/50 p-8 md:p-16">
 		<div class="text-white">
-			<h2 class="mb-2 text-2xl font-bold">Featured Tour: {featuredTour.name}</h2>
-			<p class="mb-4">{featuredTour.summary}</p>
+			<h2 class="mb-2 text-2xl font-bold">Featured Tour: {featuredTour?.name}</h2>
+			<p class="mb-4">{featuredTour?.summary}</p>
 			<a
-				href={`/tours/${featuredTour.slug}`}
-				class="inline-block transform rounded-full bg-white px-4 py-2 text-lg text-primary shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-green-50"
+				href={`/tours/${featuredTour?.slug}`}
+				class:list={[
+					'inline-block transform rounded-full bg-white px-4 py-2 text-lg text-primary shadow-lg transition-all',
+					'duration-300 ease-in-out hover:scale-105 hover:bg-green-50'
+				]}
 			>
 				Learn More
 			</a>

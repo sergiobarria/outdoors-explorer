@@ -1,6 +1,5 @@
 ---
-import { MaxWidthContainer } from '@/components/site/max-width-container';
-import { cn } from '@/lib/utils';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
 import PopularToursGrid from './popular-tours-grid.astro';
 ---
 
@@ -15,10 +14,10 @@ import PopularToursGrid from './popular-tours-grid.astro';
 				{
 					Array.from({ length: 4 }).map((_, idx) => (
 						<div
-							class={cn(
+							class:list={[
 								'h-64 w-full animate-pulse rounded-lg bg-gray-200',
 								idx % 2 === 1 && 'md:translate-y-8'
-							)}
+							]}
 						/>
 					))
 				}

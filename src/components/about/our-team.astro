@@ -1,44 +1,44 @@
 ---
 import { Image } from 'astro:assets';
 
-import { MaxWidthContainer } from '@/components/site/max-width-container';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
 import { MountainIcon } from 'lucide-react';
 
 const teamMembers = [
 	{
 		name: 'Alex Thompson',
 		role: 'Co-Founder & CEO',
-		image: '/placeholder.svg?height=300&width=300',
+		image: 'https://xsgames.co/randomusers/assets/avatars/male/27.jpg',
 		bio: 'With over 20 years of mountaineering experience, Alex leads our company with passion and expertise.'
 	},
 	{
 		name: 'Sarah Chen',
 		role: 'Co-Founder & Head of Operations',
-		image: '/placeholder.svg?height=300&width=300',
+		image: 'https://xsgames.co/randomusers/assets/avatars/female/21.jpg',
 		bio: "Sarah's background in environmental science shapes our commitment to sustainable travel practices."
 	},
 	{
 		name: 'Mike Rodriguez',
 		role: 'Lead Guide & Safety Officer',
-		image: '/placeholder.svg?height=300&width=300',
+		image: 'https://xsgames.co/randomusers/assets/avatars/male/23.jpg',
 		bio: 'A certified wilderness first responder, Mike ensures the safety of all our expeditions.'
 	},
 	{
 		name: 'Emma Larsson',
 		role: 'Cultural Liaison & Guide',
-		image: '/placeholder.svg?height=300&width=300',
+		image: 'https://xsgames.co/randomusers/assets/avatars/female/40.jpg',
 		bio: 'Fluent in five languages, Emma specializes in creating immersive cultural experiences.'
 	},
 	{
 		name: 'David Okafor',
 		role: 'Environmental Specialist',
-		image: '/placeholder.svg?height=300&width=300',
+		image: 'https://xsgames.co/randomusers/assets/avatars/male/52.jpg',
 		bio: 'David works to minimize our ecological footprint and educate travelers on conservation.'
 	},
 	{
-		name: 'Yuki Tanaka',
+		name: 'Elena Kowalski',
 		role: 'Adventure Photographer',
-		image: '/placeholder.svg?height=300&width=300',
+		image: 'https://xsgames.co/randomusers/assets/avatars/female/64.jpg',
 		bio: 'Yuki captures the breathtaking moments of our journeys, inspiring future adventurers.'
 	}
 ];
@@ -55,7 +55,7 @@ const teamMembers = [
 				teamMembers.map((member) => (
 					<div class="group relative overflow-hidden rounded-2xl shadow-lg shadow-gray-600 transition-all duration-300 hover:shadow-2xl">
 						<Image
-							src="/placeholder.jpg"
+							src={member.image}
 							alt={member.name}
 							width={600}
 							height={400}

@@ -1,6 +1,4 @@
 ---
-import { cn } from '@/lib/utils';
-
 interface Props {
 	items: {
 		title: string;
@@ -20,12 +18,12 @@ const { items } = Astro.props as Props;
 	{
 		items.map((feature, index) => (
 			<div
-				class={cn(
+				class:list={[
 					'relative flex items-center',
 					index % 2 === 0 ? 'justify-start' : 'justify-end'
-				)}
+				]}
 			>
-				<div class={cn('w-1/2', index % 2 === 0 ? 'pr-8' : 'pl-8')}>
+				<div class:list={['w-1/2', index % 2 === 0 ? 'pr-8' : 'pl-8']}>
 					<div class="rounded-xl bg-gray-700 p-6 shadow-lg transition-all duration-300">
 						<div class="flex items-center gap-4">
 							<feature.icon className="size-10 text-primary mb-4" />

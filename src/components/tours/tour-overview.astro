@@ -1,21 +1,21 @@
 ---
-import type { TourDetailWithDescription } from '@/db/types';
-
 interface Props {
-	tour: TourDetailWithDescription;
+	name: string;
+	description: string | null;
+	images: string[];
 }
 
-const { tour } = Astro.props as Props;
+const { name, description, images } = Astro.props as Props;
 ---
 
 <section class="rounded-lg bg-gray-700 p-6 text-gray-200 shadow-md">
 	<h3 class="mb-4 text-xl font-semibold">Tour Overview</h3>
-	<p class="mb-6 text-gray-400">{tour.description}</p>
+	<p class="mb-6 text-gray-400">{description}</p>
 
 	<h4 class="mb-3 text-lg font-semibold">Tour Highlights</h4>
 	<ul class="mb-6 text-gray-400">Highlights here...</ul>
 
 	<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-		{tour.images.map((image) => <img src={image} alt={tour.name} class="rounded-lg" />)}
+		{images.map((image) => <img src={image} alt={name} class="rounded-lg" />)}
 	</div>
 </section>
