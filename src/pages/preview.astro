@@ -1,0 +1,149 @@
+---
+import { actions } from 'astro:actions';
+import { MapPinIcon } from 'lucide-react';
+
+import Layout from '@/layouts/layout.astro';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import TourStats from '@/components/site/tour-stats.astro';
+import { calculateTotalPrice, formatCurrency } from '@/lib/utils';
+import { getTourBySlug } from '@/data-access/tours';
+
+const refererUrl = new URL(Astro.request.headers.get('referer') as string);
+if (!Astro.locals.user) {
+	const redirectPath = refererUrl.pathname;
+	const message = 'Please sign in to continue with your booking';
+	return Astro.redirect(
+		`/auth/sign-in?redirect_url=${redirectPath}&message=${encodeURIComponent(message)}`
+	);
+}
+
+const result = Astro.getActionResult(actions.checkout);
+if (result && !result.error) {
+	return Astro.redirect(result.data.url);
+}
+
+const tourSlug = Astro.url.searchParams.get('tour');
+const tourDate = Astro.url.searchParams.get('date');
+if (!tourSlug || !tourDate) return Astro.redirect('/404');
+
+const tour = await getTourBySlug(tourSlug as string);
+if (!tour) return Astro.redirect('/404');
+
+const selectedDateId = tour?.startDates.find((date) => date.id === tourDate)?.id || null;
+if (!selectedDateId) return Astro.redirect('/404'); // This should never happen but just in case
+---
+
+<Layout>
+	<section class="py-12">
+		<MaxWidthContainer>
+			<div class="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-x-8 md:gap-y-0">
+				<img
+					src={tour.images.at(0) || '/placeholder.jpg'}
+					alt="Tour Image"
+					class="col-span-1 h-96 w-full rounded-lg object-cover"
+				/>
+				<div class="col-span-2">
+					<h1 class="text-4xl font-bold text-gray-200">
+						Your tour: {tour.name}
+					</h1>
+
+					<div class="my-6 flex items-center text-gray-400">
+						<MapPinIcon className="mr-1 size-4 text-primary" />
+						<span class="text-sm"> Tour Location here... </span>
+					</div>
+
+					<TourStats
+						duration={tour.duration}
+						groupSize={tour.maxGroupSize}
+						rating={tour.rating as number}
+						ratingsQty={tour.ratingsQty as number}
+					/>
+
+					<h2 class="mt-8 text-2xl font-bold text-gray-400">Tour Summary</h2>
+					<p class="my-4 text-gray-400">
+						{tour.summary || tour.description || 'No description available'}
+					</p>
+
+					<hr class="my-6 border-gray-600" />
+
+					<div class="space-y-2 text-sm text-gray-400">
+						<p class="flex justify-between">
+							Tour Price: <span>{formatCurrency(tour.price / 100)}</span>
+						</p>
+						{
+							tour.discount && (
+								<p class="flex justify-between">
+									Tour Discount: <span>{`${tour.discount}%`}</span>
+								</p>
+							)
+						}
+						{
+							!tour.discount && (
+								<p class="flex justify-between">
+									Tour Discount: <span>-</span>
+								</p>
+							)
+						}
+
+						<hr class="my-6 border-gray-600" />
+						<p class="flex justify-between">
+							Order Total: <span
+								>{
+									formatCurrency(
+										calculateTotalPrice(tour.price / 100, 1, tour.discount)
+									)
+								}</span
+							>
+						</p>
+					</div>
+
+					<div class="mt-6 flex flex-col items-end">
+						<form id="checkout-form">
+							<input type="hidden" name="tourSlug" value={tour.slug} />
+							<input type="hidden" name="quantity" value="1" />
+							<input type="hidden" name="dateId" value={selectedDateId} />
+							<button type="submit" class="btn btn-primary text-white">
+								Continue to Checkout
+							</button>
+						</form>
+						<div id="error-message" class="mt-4 hidden text-sm text-error">
+							<p>Something went wrong. Please try again later</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</MaxWidthContainer>
+	</section>
+</Layout>
+
+<script>
+	import { actions } from 'astro:actions';
+	import { navigate } from 'astro:transitions/client';
+
+	const formEl = document.getElementById('checkout-form') as HTMLFormElement;
+	formEl.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		let message = '';
+		const form = new FormData(formEl);
+		const { data, error } = await actions.checkout(form);
+
+		if (error?.code === 'UNAUTHORIZED') {
+			console.error('Error:', error);
+			message = 'Please sign in to continue with your booking';
+		} else if (error?.code === 'NOT_FOUND') {
+			console.error('ERROR: ', error);
+			message = 'The tour you are trying to book is not available';
+		}
+
+		if (message) {
+			const errorMessageEl = document.getElementById('error-message') as HTMLDivElement;
+			errorMessageEl.classList.remove('hidden');
+			errorMessageEl.querySelector('p')!.textContent = message;
+			return;
+		}
+
+		if (data?.url) {
+			navigate(data.url);
+		}
+	});
+</script>

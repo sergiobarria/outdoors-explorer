@@ -5,8 +5,7 @@ import Layout from '@/layouts/layout.astro';
 import ToursList from '@/components/tours/tours-list.astro';
 import TourCardSkeleton from '@/components/tours/tour-card-skeleton.astro';
 import PageHeader from '@/components/site/page-header.astro';
-import { MaxWidthContainer } from '@/components/site/max-width-container';
-import { Input } from '@/components/ui/input';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
 import { aboutImg2 } from '@/assets';
 ---
 
@@ -36,11 +35,11 @@ import { aboutImg2 } from '@/assets';
 
 			<div class="mb-6 w-full max-w-[400px] md:w-1/2">
 				<form id="search-form">
-					<Input
+					<input
 						id="search"
 						type="search"
 						placeholder="Search Tours by Name"
-						className="bg-gray-700 placeholder:text-gray-200"
+						class="input input-md input-bordered w-full"
 						name="search"
 					/>
 				</form>

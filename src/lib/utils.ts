@@ -1,10 +1,3 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
-
 export function formatCurrency(amount: number) {
 	return new Intl.NumberFormat('en-US', {
 		style: 'currency',
@@ -47,4 +40,14 @@ export function formatDateTime(dateString?: string) {
 	};
 
 	return date.toLocaleString('en-US', options).replace(',', ' at');
+}
+
+export function calculateDiscount(price: number, discount: number) {
+	return price - (price * discount) / 100;
+}
+
+export function calculateTotalPrice(price: number, quantity: number, discount: number | null) {
+	const total = price * quantity;
+	if (!discount) return total;
+	return total - (total * discount) / 100;
 }

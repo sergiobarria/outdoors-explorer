@@ -5,38 +5,13 @@ import TourOverview from '@/components/tours/tour-overview.astro';
 import TourItenerary from '@/components/tours/tour-itenerary.astro';
 import QuickFacts from '@/components/tours/quick-facts.astro';
 import TourReviews from '@/components/tours/tour-reviews.astro';
-import { getImageUrl } from '@/lib/s3';
-import { db } from '@/db';
-import { MaxWidthContainer } from '@/components/site/max-width-container';
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
+import { getTourBySlug } from '@/data-access/tours';
 
-export const prerender = false;
 const { slug } = Astro.params;
 if (!slug) return Astro.redirect('/404');
 
-async function getTourBySlug() {
-	const tour = await db.query.toursTable.findFirst({
-		where: (records, { eq }) => eq(records.slug, slug as string),
-		columns: { created: false, modified: false },
-		with: {
-			images: {
-				columns: { imageKey: true }
-			},
-			startDates: {
-				columns: { date: true }
-			}
-		}
-	});
-
-	if (!tour) return null;
-
-	return {
-		...tour,
-		images: tour.images.map((image) => getImageUrl(image.imageKey)),
-		startDates: tour.startDates.map((date) => date.date)
-	};
-}
-
-const tour = await getTourBySlug();
+const tour = await getTourBySlug(slug);
 if (!tour) return Astro.redirect('/404');
 ---
 
@@ -44,8 +19,8 @@ if (!tour) return Astro.redirect('/404');
 	<MaxWidthContainer className="grid grid-cols-1 gap-8 py-8 lg:grid-cols-3">
 		<div class="space-y-6 lg:col-span-2">
 			<TourDetailCover tour={tour} />
-			<TourOverview tour={tour} />
-			<TourItenerary tour={tour} />
+			<TourOverview name={tour.name} description={tour.description} images={tour.images} />
+			<TourItenerary />
 			<TourReviews tourId={tour.id} />
 		</div>
 
