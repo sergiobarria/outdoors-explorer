@@ -1,11 +1,11 @@
+import { ActionError, defineAction } from 'astro:actions';
+import { z } from 'astro:schema';
+
 import { BASE_URL } from '@/constants';
 import { createOrder } from '@/data-access/orders';
 import { getTourBySlug } from '@/data-access/tours';
-import { getImageUrl } from '@/lib/s3';
+import { calculateBookingPrice } from '@/lib/pricing';
 import { stripe } from '@/lib/stripe';
-import { calculateTotalPrice } from '@/lib/utils';
-import { ActionError, defineAction } from 'astro:actions';
-import { z } from 'astro:schema';
 
 const inputSchema = z.object({
 	tourSlug: z.string(),
@@ -23,7 +23,7 @@ export const checkout = defineAction({
 				message: 'You must be logged in to checkout'
 			});
 		}
-		console.log('USER FOUND');
+
 		const { url } = await createCheckoutSession(input, ctx.locals.user.id);
 		return { url };
 	}
@@ -36,10 +36,14 @@ async function createCheckoutSession(params: z.infer<typeof inputSchema>, userId
 	if (!tour || !startDate) {
 		throw new ActionError({ code: 'NOT_FOUND', message: 'Tour not found' });
 	}
-	const image = getImageUrl(tour.images[0]);
 
-	const totalPrice = calculateTotalPrice(tour.price, quantity, tour.discount);
-	const orderId = await createOrder(userId, tour.id, totalPrice);
+	const { subtotal, salesTax, bookingFee, processingFee, total } = calculateBookingPrice(
+		tour.price,
+		quantity,
+		tour.discount || 0
+	);
+
+	const orderId = await createOrder(userId, tour.id, total);
 
 	const session = await stripe.checkout.sessions.create({
 		success_url: `${BASE_URL}/checkout?&orderId=${orderId}`,
@@ -47,18 +51,44 @@ async function createCheckoutSession(params: z.infer<typeof inputSchema>, userId
 		payment_method_types: ['card'],
 		mode: 'payment',
 		shipping_address_collection: { allowed_countries: ['US'] },
-		metadata: { orderId },
+		metadata: { orderId, userId },
+		invoice_creation: {
+			enabled: true, // Enable automatic invoice creation
+			invoice_data: {
+				description: `Invoice for ${tour.name} booking`
+			}
+		},
 		line_items: [
 			{
 				price_data: {
 					currency: 'USD',
 					product_data: {
 						name: tour.name,
-						images: [image]
+						images: [tour.images[0]]
 					},
-					unit_amount: totalPrice
+					unit_amount: subtotal
 				},
 				quantity
+			},
+			{
+				price_data: {
+					currency: 'USD',
+					product_data: {
+						name: 'Booking Fee'
+					},
+					unit_amount: bookingFee
+				},
+				quantity: 1
+			},
+			{
+				price_data: {
+					currency: 'USD',
+					product_data: {
+						name: 'Processing Fee'
+					},
+					unit_amount: processingFee
+				},
+				quantity: 1
 			}
 		]
 	});

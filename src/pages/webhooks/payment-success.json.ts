@@ -4,8 +4,8 @@ import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { updateOrder } from '@/data-access/orders';
 import { createBillingAddress, createShippingAddress } from '@/data-access/addresses';
+import { savePayment } from '@/data-access/payments';
 
-export const prerender = false;
 const { STRIPE_WEBHOOK_SECRET } = import.meta.env;
 
 /**
@@ -31,23 +31,29 @@ export const POST: APIRoute = async ({ request }) => {
 			return new Response('Missing customer email', { status: 400 }); // This should never happen
 		}
 
-		const session = event.data.object as Stripe.Checkout.Session;
+		// Get the session and cast it to the correct type that includes the invoice
+		const session = (await stripe.checkout.sessions.retrieve(event.data.object.id, {
+			expand: ['invoice']
+		})) as Stripe.Checkout.Session & { invoice: Stripe.Invoice };
 
-		const { orderId } = session.metadata || { orderId: null };
+		const { orderId, userId } = session.metadata || { orderId: null, userId: null };
 		const billingAddress = session.customer_details?.address;
 		const shippingAddress = session.customer_details?.address;
+		const paymentIntentId = session.payment_intent as string;
 
-		if (!orderId || !billingAddress || !shippingAddress) {
+		if (!orderId || !userId || !billingAddress || !shippingAddress) {
 			console.error('Missing order ID or address');
 			return new Response('Missing order ID or address', { status: 400 });
 		}
 
+		// Update order status
 		await updateOrder(orderId, {
 			status: 'paid',
 			isPaid: true,
 			modified: new Date().toISOString()
 		});
 
+		// Save addresses
 		await createBillingAddress({
 			orderId,
 			address: billingAddress.line1!,
@@ -64,6 +70,21 @@ export const POST: APIRoute = async ({ request }) => {
 			state: shippingAddress.state!,
 			country: shippingAddress.country!,
 			zip: shippingAddress.postal_code!
+		});
+
+		// Save payment details
+		const paymentMethod = session.payment_method_types[0]; // Assume only one payment method is used, which is card
+		const amountPaid = session.amount_total as number;
+
+		await savePayment({
+			orderId,
+			userId,
+			paymentIntentId,
+			stripeSessionId: session.id,
+			paymentMethod,
+			amountPaid,
+			status: session.payment_status,
+			invoiceUrl: session.invoice.hosted_invoice_url
 		});
 
 		// TODO: Send a confirmation email
