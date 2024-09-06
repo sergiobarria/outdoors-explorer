@@ -1,5 +1,89 @@
 ---
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
 import Layout from '@/layouts/layout.astro';
 ---
 
-<Layout> privacy </Layout>
+<Layout>
+	<MaxWidthContainer className="max-w-screen-md py-12 text-gray-200">
+		<div class="mx-auto px-6 sm:px-8">
+			<h1 class="mb-6 text-4xl font-bold">Privacy Policy</h1>
+
+			<p class="mb-4 text-lg">
+				This Privacy Policy explains how we collect, use, disclose, and safeguard your
+				information when you visit our website. Please read this privacy policy carefully.
+				If you do not agree with the terms of this privacy policy, please do not access the
+				site.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Information We Collect</h2>
+			<p class='mb-4"'>
+				We may collect information about you in a variety of ways. The information we may
+				collect on the Site includes:
+			</p>
+
+			<ul class="mb-4 list-inside list-disc">
+				<li>
+					Personal Data: Personally identifiable information, such as your name, shipping
+					address, email address, and telephone number.
+				</li>
+				<li>
+					Derivative Data: Information our servers automatically collect when you access
+					the Site, such as your IP address, browser type, and access times.
+				</li>
+				<li>
+					Financial Data: Financial information related to your payment method, such as
+					credit card number and billing information.
+				</li>
+			</ul>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Use of Your Information</h2>
+			<p class='mb-4"'>We may use information we collect from you to:</p>
+
+			<ul class="mb-4 list-inside list-disc">
+				<li>Facilitate account creation and logon process.</li>
+				<li>Process payments and refunds.</li>
+				<li>Deliver targeted advertising and promotions.</li>
+				<li>Improve our services and personalize your user experience.</li>
+			</ul>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Disclosure of Your Information</h2>
+			<p class='mb-4"'>
+				We may share information we have collected about you in certain situations:
+			</p>
+
+			<ul class="mb-4 list-inside list-disc">
+				<li>
+					By Law: We may disclose your information if we are required to do so by law.
+				</li>
+				<li>
+					Business Transfers: We may share or transfer your information in connection with
+					a business transaction.
+				</li>
+				<li>
+					Third-Party Service Providers: We may share your information with third-party
+					vendors who perform services for us.
+				</li>
+			</ul>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Data Security</h2>
+			<p class='mb-4"'>
+				We use administrative, technical, and physical security measures to help protect
+				your personal information. While we have taken reasonable steps to secure the
+				personal information you provide to us, please be aware that no security measures
+				are perfect or impenetrable.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Changes to This Privacy Policy</h2>
+			<p class='mb-4"'>
+				We may update this Privacy Policy from time to time. We will notify you of any
+				changes by posting the new Privacy Policy on this page.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Contact Us</h2>
+			<p class='mb-4"'>
+				If you have any questions about this Privacy Policy, please contact us at
+				privacy@example.com.
+			</p>
+		</div>
+	</MaxWidthContainer>
+</Layout>

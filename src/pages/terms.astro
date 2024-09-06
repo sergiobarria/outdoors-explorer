@@ -1,5 +1,61 @@
 ---
+import MaxWidthContainer from '@/components/site/max-width-container.astro';
 import Layout from '@/layouts/layout.astro';
 ---
 
-<Layout> terms </Layout>
+<Layout>
+	<MaxWidthContainer className="max-w-screen-md py-12 text-gray-200">
+		<div class="mx-auto max-w-7xl px-6 sm:px-8">
+			<h1 class="mb-6 text-4xl font-bold">Terms of Service</h1>
+
+			<p class="mb-4 text-lg">
+				These Terms of Service ("Terms", "Agreement") are an agreement between the website
+				operator ("Website Operator", "us", "we" or "our") and you ("User", "you" or
+				"your"). This Agreement sets forth the general terms and conditions of your use of
+				the website and any of its products or services.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Accounts and Membership</h2>
+			<p class="mb-4">
+				If you create an account on the website, you are responsible for maintaining the
+				security of your account and fully responsible for all activities that occur under
+				the account. We may, but are not obligated to, monitor and review new accounts
+				before you may sign in and use our services.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">User Content</h2>
+			<p class="mb-4">
+				We do not own any data, information, or material ("Content") that you submit on the
+				website in the course of using the Service. You shall have sole responsibility for
+				the accuracy, quality, integrity, legality, reliability, appropriateness, and
+				intellectual property ownership or right to use of all submitted Content.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Backups</h2>
+			<p class="mb-4">
+				We perform regular backups of the website and Content, but we do not guarantee there
+				will be no data loss or corruption. Corrupt or invalid backup points may be unusable
+				in the case of data restoration.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Changes and Amendments</h2>
+			<p class="mb-4">
+				We reserve the right to modify this Agreement or its policies relating to the
+				website or services at any time, effective upon posting of an updated version of
+				this Agreement on the website.
+			</p>
+
+			<h2 class="mb-4 mt-8 text-2xl font-semibold">Acceptance of These Terms</h2>
+			<p class="mb-4">
+				You acknowledge that you have read this Agreement and agree to all its terms and
+				conditions. By using the website or its services, you agree to be bound by this
+				Agreement.
+			</p>
+
+			<p class="mb-8">
+				If you have any questions about these Terms, please contact us at
+				support@example.com.
+			</p>
+		</div>
+	</MaxWidthContainer>
+</Layout>
